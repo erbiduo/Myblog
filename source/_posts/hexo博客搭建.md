@@ -59,7 +59,7 @@ $ npm list // 查看当前目录已安装插件
 1. 通过config命令
 ```
 $ npm config set registry http://registry.npm.taobao.org 
-$ npm ingo underscore //如果上面配置正确这个命令会有字符串response
+$ npm info underscore //如果上面配置正确这个命令会有字符串response
 ```
 2. 命令行指定
 ```
