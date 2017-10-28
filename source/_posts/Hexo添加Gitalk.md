@@ -37,11 +37,9 @@ import Gitalk from 'gitalk'
 
 ### 新建仓库
 
-Github上新建一个仓库，命名随便只要记得住。
+1. Github上新建一个仓库，命名随便只要记得住，这里就不赘述了,详细操作查看[Hexo博客搭建](https://www.wangyiting.win/2017/05/16/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html)。
 
-![1](http://oohkvf5b9.bkt.clouddn.com/A08_1.png)
-
-创建`OAuth Application`，没有的小伙伴[请戳我](https://github.com/settings/applications/new)。 
+2. 创建`OAuth Application`，没有的小伙伴[请戳我](https://github.com/settings/applications/new)。 
 
 ![2](http://oohkvf5b9.bkt.clouddn.com/A08_2.png)
 
@@ -51,8 +49,7 @@ Github上新建一个仓库，命名随便只要记得住。
 
 ### 修改主题文件
 
-这里以next主题为例，不同的主题目录和模板引擎不同，可以自己修改哈。
-修改next主题配置文件`_config.yml`，于`dikqus`上方，添加字段：
+1. 这里以next主题为例，不同的主题目录和模板引擎不同，可以自己修改哈,修改next主题配置文件`_config.yml`，于`dikqus`上方，添加字段：
 
 ```
 # Gitalk
@@ -66,7 +63,7 @@ gitalk:
   distractionFreeMode: true
 ```
 
-找到`next/layout/_third-party/comments`文件夹，新建`gitalk.swig`文件，代码如下：
+2. 找到`next/layout/_third-party/comments`文件夹，新建`gitalk.swig`文件，代码如下：
 
 ```
 {% if not (theme.duoshuo and theme.duoshuo.shortname) and not theme.duoshuo_shortname %}
@@ -94,13 +91,13 @@ gitalk:
 {% endif %}
 ```
 
-同目录下在`index.swig`文件末尾添加：
+3. 同目录下在`index.swig`文件末尾添加：
 
 ```
 {% include 'gitalk.swig' %}
 ```
 
-下步搞起，`next/layout/_partials`文件夹下，找到`comments.swig`文件，添加代码：
+4. 下步搞起，`next/layout/_partials`文件夹下，找到`comments.swig`文件，添加代码：
 
 ```
 {% elseif theme.gitalk.distractionFreeMode %}  
