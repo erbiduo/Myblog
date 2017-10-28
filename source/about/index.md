@@ -1,6 +1,6 @@
 ---
 title:
-date: 2017-05-11 11:30:03
+date: 2017-04-11 11:30:03
 type: "about"
 ---
 
@@ -18,10 +18,9 @@ type: "about"
 #### 联系方式
 
 * 邮箱：157461501@qq.com
+* 微博：[乄二多乄](http://weibo.com/u/5637580713?refer_flag=1001030102_)
 
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=110 src="//music.163.com/outchain/player?type=0&id=429273433&auto=1&height=90"></iframe>
 
-
-/*<p style="color: #a5a5a5;text-align: center;">温馨提示：评论是Disqus需要翻墙哦</p>*/
 
