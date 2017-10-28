@@ -3,6 +3,9 @@
 //body
 body{
 
+	//comments
+	.gt-link gt-link-counts,
+	.gt-ico gt-ico-tip,
 	a{
 		color: $blue-bright;
 		border-bottom: 0px solid $blue-bright;
@@ -351,4 +354,24 @@ h2.title{
 //tags
 .tag-cloud-tags a{
 	
+}
+
+//comments
+#gitalk-container{
+	margin: 0 0 50px 0;
+    padding: 20px 30px 40px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.15);
+}
+
+button.gt-btn gt-btn-public{
+	background-color: #222
+	&:hover{
+		color: #555;
+	}
+}
+
+p.gt-comments-null{
+	display: none;
 }
