@@ -5,7 +5,7 @@ categories: Hexo
 tags: [Hexo]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A08_gitalk.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A08_giralk.jpg">
 特殊时段，好多“红杏“类软件都扑街了，而且disqus在国内的加载速度那个惨啊，搞个Gitalk试试喽～
 <!--more-->
 

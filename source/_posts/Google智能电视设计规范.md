@@ -6,7 +6,7 @@ tags: [智能电视,设计规范]
 
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A03_goolge.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A03_%20goolge.jpg">
 
 电视的观看环境通常被描述为“10英尺环境”，电视屏幕也被描述为“10英尺的用户界面”。<!-- more -->当你为10英尺环境创建应用程序时，请记住以下基础概念：
 

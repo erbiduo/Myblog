@@ -4,10 +4,17 @@ date: 2017-04-11 11:30:03
 type: "about"
 ---
 
-<h2 style="text-align: center ;">关于杂谈</h2>
+<h2 style="text-align: center ; margin-bottom: 20px;">关于杂谈</h2>
 
-这是一个记录心得、 笔记、奋斗史的地方。
-生命在于折腾，能作茧自缚，才能破茧成碟，为中二之觉醒而努力着。
+<img  class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg">
+
+93中二骚年/大叔，UE&UI射鸡狮
+在这记录心得、 笔记还有奋斗史。
+
+#### 人生信条
+
+爱折腾，爱学习，能学的都不是事，遇见了就是干！
+为中二之觉醒而努力着... ...
 
 #### 兴趣爱好
 
@@ -17,10 +24,12 @@ type: "about"
 
 #### 联系方式
 
-* 邮箱：157461501@qq.com
-* 微博：[乄二多乄](http://weibo.com/u/5637580713?refer_flag=1001030102_)
+* 邮箱：erbiduo@qq.com
+* QQ：157461501
+* 手机：你见过博客放手机的吗？
 
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=110 src="//music.163.com/outchain/player?type=0&id=429273433&auto=1&height=90"></iframe>
+
 
 

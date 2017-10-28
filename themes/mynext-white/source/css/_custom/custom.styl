@@ -228,7 +228,7 @@ body{
 	}
 
 	.post-body img,
-	.post-body .full-image{
+	.full-image{
 		box-shadow: 0 0 3px rgba(0,0,0,.15);
 		background: #fff;
 		transition: all .24s ease;
@@ -320,7 +320,7 @@ h2.title{
 	}
 	.post-header{
 	 	border-bottom: 0;
-	 	:hover{
+	 	&:hover{
 	 		border-bottom-color: $blue-bright;
 		 }
 	}
@@ -348,7 +348,21 @@ h2.title{
 	}
 }
 
-//tags
-.tag-cloud-tags a{
-	
+//nav.pagination
+.pagination{
+	margin: 40px 0 20px;	
+	.pape-numeber.current{
+		background-color: none;
+		bordr-top-color: rgba(0,0,0,0);
+	}
+	.prev,
+	.next,
+	a.page-number{
+		border-top: 0;
+		color: #555;
+		&:hover{
+			bordr-top: 0;
+			color: $blue-bright;
+	}
+}
 }
