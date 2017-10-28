@@ -4,8 +4,8 @@
 body{
 
 	//comments
-	.gt-container,
-	.gt-header-controls-tip,
+	a.gt-link gt-link-counts,
+	a.gt-header-controls-tip,
 	a{
 		color: $blue-bright;
 		border-bottom: 0px solid $blue-bright;
@@ -365,12 +365,15 @@ h2.title{
     box-shadow: 0 0 3px rgba(0,0,0,0.15);
 }
 
-.gt-container,
-.gt-btn{
+button.gt-btn gt-btn-public{
 	background-color: #222
 	&:hover{
 		color: #555;
 	}
+}
+
+.gt-container .gt-link {
+    border-bottom: 0px dotted #6190e8;
 }
 
 p.gt-comments-null{
