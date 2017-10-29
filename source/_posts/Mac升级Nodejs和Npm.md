@@ -5,7 +5,7 @@ categories: Mac
 tags: [Mac,笔记]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A10_lisha.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A10_lisha.jpg?imageMogr2/format/webp">
 刚黑完苹果，记笔记～
 <!--more-->
 

@@ -5,7 +5,7 @@ categories: Hexo
 tags: [Hexo,博客]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A07_hexobackup.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A07_hexobackup.jpg?imageMogr2/format/webp">
 偷懒使人明智，Hexo博客自动备份方案~
 <!--more-->
 

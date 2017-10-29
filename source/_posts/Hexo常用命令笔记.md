@@ -5,7 +5,7 @@ categories: Hexo
 tags: [Hexo,笔记]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A04-hexonote.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A04-hexonote.jpg?imageMogr2/format/webp">
 Hexo常用命令学习笔记♥(๑> ₃ <)♥ ~ ~
 <!--more-->
 

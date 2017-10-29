@@ -121,6 +121,9 @@
   <script>try{Typekit.load({ async: false });}catch(e){}
 </script>
 
+<!-- MusicPlayer 头部引入 -->
+<script src="https://cdn.bootcss.com/aplayer/1.6.0/APlayer.min.js"></script>
+
 {# Canonical, good for google search engine (SEO) : https://support.google.com/webmasters/answer/139066 #}
 {% if theme.canonical %}
   <link rel="canonical" href="{{ config.url }}/{{ page.canonical_path.replace('index.html', '') }}"/>

@@ -5,7 +5,7 @@ categories: Git
 tags: [Git,笔记]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A06_Gitnote.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A06_Gitnote.jpg?imageMogr2/format/webp">
 由于各种原因，好久没有用，都忘的七七八八了，基础教程查看归纳比较累，还是整理了下笔记防止忘记吧！
 <!--more-->
 

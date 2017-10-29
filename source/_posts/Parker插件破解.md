@@ -5,7 +5,7 @@ categories: 工具
 tags: [PS插件]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A04%20Parker.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A04%20Parker.jpg?imageMogr2/format/webp">
 
 Parker是PS的标注插件，可以有效提高UI标注图效率，当然个人认为Markman的操作会更加的便捷快速，看个人习惯了哈。<!--more-->
 

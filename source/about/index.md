@@ -6,7 +6,7 @@ type: "about"
 
 <h2 style="text-align: center ; margin-bottom: 20px;">关于杂谈</h2>
 
-<img  class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg">
+<img  class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg?imageMogr2/format/webp">
 
 93中二骚年/大叔，UE&UI射鸡狮
 在这记录心得、 笔记还有奋斗史。
@@ -30,6 +30,3 @@ type: "about"
 
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=110 src="//music.163.com/outchain/player?type=0&id=429273433&auto=1&height=90"></iframe>
-
-
-

@@ -161,10 +161,10 @@ social_icons: #社交的图标
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
-avatar: images/avatar.png
+avatar: http://oopnyngkm.bkt.clouddn.com/avatar1.png?imageMogr2/format/webp  #images/avatar.png
 
 # Logo
-logo: images/logo.png
+logo: http://oopnyngkm.bkt.clouddn.com/logo.png?imageMor2/format/webp
 desc: grasp all lose all
 
 # Table Of Contents in the Sidebar #文章自动显示目录
@@ -521,12 +521,12 @@ vendors:
   _internal: lib
 
   # Internal version: 2.1.3
-  jquery:
+  jquery: http://cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js
 
   # Internal version: 2.1.5
   # See: http://fancyapps.com/fancybox/
-  fancybox:
-  fancybox_css:
+  fancybox: http://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js
+  fancybox_css: http://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css
 
   # Internal version: 1.0.6
   # See: https://github.com/ftlabs/fastclick
@@ -534,7 +534,7 @@ vendors:
 
   # Internal version: 1.9.7
   # See: https://github.com/tuupola/jquery_lazyload
-  lazyload:
+  lazyload: 
 
   # Internal version: 1.2.1
   # See: http://VelocityJS.org
@@ -564,6 +564,12 @@ vendors:
   #three
   three:
   three_waves:
+
+# 图片懒加载npm install hexo-lazyload-image --save
+lazyload:
+enable: false
+onlypost: true
+loadingImg: # eg. ./images/loading.png
 
 
 

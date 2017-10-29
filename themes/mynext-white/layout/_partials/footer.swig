@@ -20,3 +20,15 @@
   </a>
 </div>
 {% endif %}
+
+<!-- MusicPlayer 尾部引入 -->
+<script src="https://api.i-meto.com/music/player.js"></script>
+
+<!-- 输入特效 -->
+<script type="text/javascript" src="{{ url_for(theme.js) }}/src/activate-power-mode.js"></script>
+<script>
+  POWERMODE.colorful = true; // 控制开启/开启礼花特效  
+  POWERMODE.shake = true; // 控制开启/关闭屏幕震动特效  
+  document.body.addEventListener('input', POWERMODE);
+</script>
+

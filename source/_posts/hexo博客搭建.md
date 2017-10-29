@@ -5,7 +5,7 @@ categories: Hexo
 tags: [Hexo,博客]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg">
+<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg?imageMogr2/format/webp">
 搭个博客给记录下生活琐事、笔记以及传说中的奋斗史。
 <!--more-->
 
@@ -17,14 +17,14 @@ tags: [Hexo,博客]
 
 点击[Git-Downloads](https://git-scm.com/downloads)下载，安装过程一路next，搭建过程中只是为了使用**Git指令**比较简单，Git作为目前最受欢迎的开源分布式版本控制系统，有兴趣的童鞋可以瞅瞅更具体的教程哈，附上链接[廖雪峰Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/)and[Gitbook](https://git-scm.com/book/zh/v2)。
 
-![git官网](http://oohkvf5b9.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170416134623.png)
+![git官网](http://oohkvf5b9.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170416134623.png?imageMogr2/format/webp)
 
 
 ## 2.安装nodejs
 
 在[nodejs官网](https://nodejs.org/en/)上，下载安装包，安装路径自定义，其他一路next。Windows上安装nodejs后自带npm（node包管理和分发工具），Linux上需独立安装npm。
 
-![nodejs](http://oohkvf5b9.bkt.clouddn.com/FireShot%20Capture%203%20-%20Node.js%20-%20https___nodejs.org_en_.png)
+![nodejs](http://oohkvf5b9.bkt.clouddn.com/FireShot%20Capture%203%20-%20Node.js%20-%20https___nodejs.org_en_.png?imageMogr2/format/webp)
 <br/>
 <br/>
 安装完成后使用以下命令查看nodejs和npm版本：
@@ -383,21 +383,21 @@ local_search:
 ## 6. 添加文章阅读数统计
 阅读数统计采用[Leancloud](https://leancloud.cn/)，没有账号的童鞋可以注册一个。
 ### 新建应用
-![leancloud1](http://oohkvf5b9.bkt.clouddn.com/leancloud1.png)
+![leancloud1](http://oohkvf5b9.bkt.clouddn.com/leancloud1.png?imageMogr2/format/webp)
 <br/>
 
 填写应用名后点击创建。
-![leancloud2](http://oohkvf5b9.bkt.clouddn.com/leancloud2.png)
+![leancloud2](http://oohkvf5b9.bkt.clouddn.com/leancloud2.png?imageMogr2/format/webp)
 <br/>
 
 ### 创建Class
 在左侧菜单存储中创建一个Class命名为`Counter`。
-![leancloud3](http://oohkvf5b9.bkt.clouddn.com/leancloud3.png)
+![leancloud3](http://oohkvf5b9.bkt.clouddn.com/leancloud3.png?imageMogr2/format/webp)
 <br/>
 
 ### Key配置
 将设置中应用Key复制。
-![leancloud4](http://oohkvf5b9.bkt.clouddn.com/leancloud4.png)
+![leancloud4](http://oohkvf5b9.bkt.clouddn.com/leancloud4.png?imageMogr2/format/webp)
 <br/>
 
 对应修改next主题下`_config.yml`的`leancloud_visitors`字段:
@@ -508,19 +508,19 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 
 ### 添加SSH Key
 登陆GitHub，点击头像打开`Account settings`，`SSH Keys`页面
-![github1](http://oohkvf5b9.bkt.clouddn.com/github1.png)<br/>
+![github1](http://oohkvf5b9.bkt.clouddn.com/github1.png?imageMogr2/format/webp)<br/>
 
 然后，点`Add SSH Key`，填上任意`Title`，在`Key`文本框里粘贴`id_rsa.pub`文件的内容：
-![github2](http://oohkvf5b9.bkt.clouddn.com/github2.png)<br/>
+![github2](http://oohkvf5b9.bkt.clouddn.com/github2.png?imageMogr2/format/webp)<br/>
 
 ### 创建项目
 创建项目，输入项目名称`myblog`，选择公开`Public`。
-![github3](http://oohkvf5b9.bkt.clouddn.com/github3.png)<br/>
+![github3](http://oohkvf5b9.bkt.clouddn.com/github3.png?imageMogr2/format/webp)<br/>
 
 ### 设置pages服务
 项目创建成功后，选择`Setting`下拉至`Github Pages`设置页面展示分支为`master branch`并保存。
-![github6](http://oohkvf5b9.bkt.clouddn.com/github6.png)<br/>
-![github5](http://oohkvf5b9.bkt.clouddn.com/github5.png)<br/>
+![github6](http://oohkvf5b9.bkt.clouddn.com/github6.png?imageMogr2/format/webp)<br/>
+![github5](http://oohkvf5b9.bkt.clouddn.com/github5.png?imageMogr2/format/webp)<br/>
 注意：**站点配置文件**`_config.yml`中，网址设置：
 ```
 url: https://erbiduo.github.io/
@@ -531,7 +531,7 @@ root: //myblog
 
 否则会出现加载页面之后没有样式的情况。自定义域名时修改回来即可。<br/>
 github上对应如下图：
-![github7](http://oohkvf5b9.bkt.clouddn.com/github7.png)<br/>
+![github7](http://oohkvf5b9.bkt.clouddn.com/github7.png?imageMogr2/format/webp)<br/>
 
 ### 配置deploy部署
 修改站点目录下`_config.yml`的`deploy`字段，输入对应项目地址及分支:
@@ -560,4 +560,4 @@ OK 至此全部搞定，个性化修改的话可以参考next主题[官方文档
 
 ***
 恩，这是一个~~正规~~的跳坑教程。。。可以开始记录我们的故事了~
-![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492357442325&di=416982fa22136fd517c1174baea0a114&imgtype=0&src=http%3A%2F%2Fi2.qhimg.com%2Ft0176245da8cf4fd621.jpg)
+![1](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492357442325&di=416982fa22136fd517c1174baea0a114&imgtype=0&src=http%3A%2F%2Fi2.qhimg.com%2Ft0176245da8cf4fd621.jpg)
