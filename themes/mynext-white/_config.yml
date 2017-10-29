@@ -358,8 +358,8 @@ duoshuo_share: false
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-google_site_verification: true
-baidu_site_verification: true
+#google_site_verification: true
+
 
 # Google Analytics
 #google_analytics:
