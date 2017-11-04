@@ -21,7 +21,7 @@ timezone:
 #如果网站是放在子目录中，将url设置成'http://yoursite.com/child'，将root设置成'/child/'
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 #网址
-url: https://wangyiting.win/blog
+url: https://https://erbiduo.github.io/blog
 #网站根目录。如果网站是放在子目录中，将root设置成'子目录名'
 root: /blog
 #文章链接地址格式 。即文章存放的目录。
