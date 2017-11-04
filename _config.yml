@@ -21,9 +21,10 @@ timezone:
 #如果网站是放在子目录中，将url设置成'http://yoursite.com/child'，将root设置成'/child/'
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 #网址
-url: https://wangyiting.win/blog
+url: https://www.wangyiting.win/blog
 #网站根目录。如果网站是放在子目录中，将root设置成'子目录名'
 root: /blog/
+
 #public_dir: public/blog
 #文章链接地址格式 。即文章存放的目录。
 permalink: :year/:month/:day/:title.html
@@ -33,7 +34,7 @@ permalink_defaults:
 #资源文件夹，放在里面的文件会上传到github中
 source_dir: source
 #公共文件夹，存放生成的静态文件
-public_dir: public
+public_dir: public/blog
 #标签文件夹，默认是tags。实际存放在source/
 tag_dir: tags
 #rss_dir: rss
