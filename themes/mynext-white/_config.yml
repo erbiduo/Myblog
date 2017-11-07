@@ -141,7 +141,7 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social: #社交链接
   #LinkLabel: Link
-  Weibo: http://weibo.com/p/1005055637580713/home?from=page_100505&mod=TAB&is_all=1#place
+  Weibo: https://wangyiting.win/
 
 
 # Social Links Icons
@@ -155,7 +155,7 @@ social_icons: #社交的图标
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
   Twitter: twitter
-  Weibo: weibo
+  Weibo: home
 
 
 # Sidebar Avatar
