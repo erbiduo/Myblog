@@ -8,7 +8,7 @@
         </a>
       </div>
     {% endif %}
-    <a id="logo" href="/blog">
+    <a id="logo" href="/">
       <img src="{{ url_for( theme.logo | default(theme.images + '/logo.gif') ) }}" />
       <span id="site-desc">
         {{ theme.desc }}
