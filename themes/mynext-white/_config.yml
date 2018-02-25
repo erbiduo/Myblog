@@ -307,7 +307,7 @@ mathjax:
 
 # Gitalk
 gitalk: 
-  enable: true
+  enable: false
   clientID: 97fd49eda3d075277956
   clientSecret: 2522bd38e64f176c592f5b3cc73b2cae9a4799d1
   repo: Blog_comments

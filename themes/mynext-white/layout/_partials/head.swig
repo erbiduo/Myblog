@@ -124,6 +124,18 @@
 <!-- MusicPlayer 头部引入 -->
 <script src="https://cdn.bootcss.com/aplayer/1.6.0/APlayer.min.js"></script>
 
+<!-- 文章加密 -->
+<script>
+    (function(){
+        if('{{ page.password }}'){
+            if (prompt('请输入文章密码') !== '{{ page.password }}'){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
 {# Canonical, good for google search engine (SEO) : https://support.google.com/webmasters/answer/139066 #}
 {% if theme.canonical %}
   <link rel="canonical" href="{{ config.url }}/{{ page.canonical_path.replace('index.html', '') }}"/>
