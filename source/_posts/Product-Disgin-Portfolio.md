@@ -2,11 +2,12 @@
 title: Product Disgin Portfolio
 date: 2018-02-25 21:56:28
 tags:
-password: wangyiting00
+password: 2018
 ---
-此处为简历部分项目预览，交互部分因含内部资料，暂不能展示详细用研数据及分析报告，仅展示部分项目。
+<h3 style="text-align: center ; ">项目作品展示</h3>
 <!-- more -->
 
+此处为简历部分项目展示，交互部分因含内部资料，暂不能展示详细用研数据及分析报告，仅展示部分项目。
 
 <h3 id='1'>1. 交互设计</h3>
 
@@ -64,15 +65,7 @@ password: wangyiting00
 
 ![](http://opy0mwtlk.bkt.clouddn.com/%E5%B9%BB%E7%81%AF%E7%89%877.PNG?imageMogr2/format/webp?imageMogr2/format/webp)
 
-<h3 id='3'>3. 手绘/鼠绘练习</h3>
-
-![](http://opy0mwtlk.bkt.clouddn.com/11.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
-
-![](http://opy0mwtlk.bkt.clouddn.com/12.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
-
-![](http://opy0mwtlk.bkt.clouddn.com/13.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
-
-<h3 id='4'>4. Web项目</h3>
+<h3 id='3'>3. Web项目</h3>
 
 由于Web项目图片较长可从新标签页查看原图。
 
@@ -85,6 +78,15 @@ password: wangyiting00
 #### 供应所官网UI设计
 
 ![](http://opy0mwtlk.bkt.clouddn.com/web2-00%20index.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+<h3 id='4'>4. 手绘/鼠绘练习</h3>
+
+![](http://opy0mwtlk.bkt.clouddn.com/11.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+![](http://opy0mwtlk.bkt.clouddn.com/12.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+![](http://opy0mwtlk.bkt.clouddn.com/13.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
 
 
 **END**
