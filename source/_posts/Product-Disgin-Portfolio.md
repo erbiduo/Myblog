@@ -2,28 +2,42 @@
 title: Product Disgin Portfolio
 date: 2018-02-25 21:56:28
 tags:
-password: 2018
 ---
 <h3 style="text-align: center ; ">项目作品展示</h3>
+<p style="text-align: center ; ">为优化加载速度，图片经过压缩处理，如无法加载请使用谷歌浏览器浏览。</p>
 <!-- more -->
 
 <h3 id='1'>1. App项目</h3>
 
 #### 贝思克课堂教学UI
 
-贝思克课堂教学是一款面向琴行机构，为琴行教师提供的游戏化音乐教学软件，分别由教师端及学生端构成，结合硬件乐器实现同步教学训练。
+贝思克课堂教学是一款面向琴行机构，为琴行教师提供的游戏化音乐教学软件，分别由教师端及学生端构成，结合硬件乐器实现同步教学训练。由于产品为B端产品，此处仅展示部分界面。
+
+##### 首页
 
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang01.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
+##### 用户信息界面
+
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang02.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+##### 设备连接界面
 
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang03.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
+##### 上课主界面
+
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang04.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+##### 上课功能界面
 
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang05.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
+##### 课堂操作界面
+
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang06.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+##### 设置界面
 
 ![](http://opy0mwtlk.bkt.clouddn.com/ketang07.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
@@ -31,15 +45,27 @@ password: 2018
 
 贝思克课后助手是一款为琴行学生提供的游戏化音乐学习软件，通过游戏形式增强音乐学习代入感，可结合教师助手及家长助手实现三方互通。
 
+##### 首页
+
 ![](http://opy0mwtlk.bkt.clouddn.com/kehou01.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+##### 成长点滴界面
 
 ![](http://opy0mwtlk.bkt.clouddn.com/kehou02.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
+##### 会员中心/商店界面
+
 ![](http://opy0mwtlk.bkt.clouddn.com/kehou03.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+##### 成就界面
+
+![](http://opy0mwtlk.bkt.clouddn.com/%E6%88%90%E5%B0%B1.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
 ![](http://opy0mwtlk.bkt.clouddn.com/kehou04.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
 ![](http://opy0mwtlk.bkt.clouddn.com/kehou05.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
+
+##### 设置界面
 
 ![](http://opy0mwtlk.bkt.clouddn.com/kehou06.jpg?imageMogr2/format/webp?imageMogr2/format/webp)
 
