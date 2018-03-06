@@ -5,4 +5,4 @@
 {% include 'youyan.swig' %}
 {% include 'livere.swig' %}
 {% include 'changyan.swig' %}
-{% include 'gitalk.swig' %}
+<!-- {% include 'gitalk.swig' %} -->
