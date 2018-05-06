@@ -32,6 +32,6 @@
     "gulp-uglify": "^3.0.0"
   },
   "scripts": {
-    "build": "hexo clean && hexo g && gulp build && hexo deploy"
+    "blogupd": "hexo clean && hexo g && gulp build && hexo deploy"
   }
 }
