@@ -4,13 +4,13 @@
 
 # Site 网站信息
 #标题
-title: 杂谈
+title: ERDUO
 #副标题
-subtitle: 小桥 · 流水 · 人家
+subtitle: #小桥 · 流水 · 人家
 #网站描述
-description: 二逼青年欢乐多(づ｡◕‿‿◕｡)づ
+description: #二逼青年欢乐多(づ｡◕‿‿◕｡)づ
 #作者昵称
-author: 二多
+author: ERDUO
 #网站语言，设置简体汉语
 language: zh-Hans
 #时区，默认电脑时区
@@ -128,16 +128,16 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 #theme: false #禁用主题
 #theme: landscape
-theme: mynext-white
+theme: sagiri
 
-# # 配置RSS
-# feed: 
-#   #feed 类型 (atom/rss2)
-#   type: atom   
-#   #rss 路径
-#   path: atom.xml  
-#   #在 rss 中最多生成的文章数(0显示所有)
-#   limit: 20
+# 配置RSS
+feed: 
+  #feed 类型 (atom/rss2)
+  type: atom   
+  #rss 路径
+  path: atom.xml  
+  #在 rss 中最多生成的文章数(0显示所有)
+  limit: 5
 
 #disqus_shortname: erduo
 

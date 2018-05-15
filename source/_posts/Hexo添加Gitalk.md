@@ -1,11 +1,11 @@
 ﻿---
 title: Hexo添加Gitalk
 date: 2017-10-28 19:47:47
-categories: Hexo
+categories: 技术向
 tags: [Hexo]
 ---
+![img0](http://oohkvf5b9.bkt.clouddn.com/A08_giralk.jpg?imageMogr2/format/webp)
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A08_giralk.jpg?imageMogr2/format/webp">
 特殊时段，好多“红杏“类软件都扑街了，而且disqus在国内的加载速度那个惨啊，搞个Gitalk试试喽～
 <!--more-->
 

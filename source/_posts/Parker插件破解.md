@@ -1,11 +1,10 @@
 ---
 title: Parker插件破解
 date: 2017-10-15 10:48:06
-categories: 工具
+categories: 工具资源
 tags: [PS插件]
 ---
-
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A04%20Parker.jpg?imageMogr2/format/webp">
+![img0](http://oohkvf5b9.bkt.clouddn.com/A04%20Parker.jpg?imageMogr2/format/webp)
 
 Parker是PS的标注插件，可以有效提高UI标注图效率，当然个人认为Markman的操作会更加的便捷快速，看个人习惯了哈。<!--more-->
 

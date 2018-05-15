@@ -1,11 +1,12 @@
 ---
 title: Git常用命令笔记
 date: 2017-10-15 11:46:44
-categories: Git
+categories: 技术向
 tags: [Git,笔记]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A06_Gitnote.jpg?imageMogr2/format/webp">
+![image0](http://oohkvf5b9.bkt.clouddn.com/A06_Gitnote.jpg?imageMogr2/format/webp)
+
 由于各种原因，好久没有用，都忘的七七八八了，基础教程查看归纳比较累，还是整理了下笔记防止忘记吧！
 <!--more-->
 

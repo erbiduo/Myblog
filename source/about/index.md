@@ -4,16 +4,16 @@ date: 2017-04-11 11:30:03
 type: "about"
 ---
 
-<h2 style="text-align: center ; margin-bottom: 20px;">关于杂谈</h2>
+<h2 style="text-align: center ; margin-bottom: 20px;">关于本站</h2>
 
-<img  class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg?imageMogr2/format/webp">
+![img0](http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg?imageMogr2/format/webp">)
 
-93中二骚年/大叔，UE&UI射鸡狮
+93生人，UE&UI射鸡狮
 在这记录心得、 笔记还有奋斗史。
 
 #### 人生信条
 
-爱折腾，爱学习，能学的都不是事，遇见了就是干！
+不折腾不舒服斯基！
 为中二之觉醒而努力着... ...
 
 #### 兴趣爱好
@@ -24,8 +24,8 @@ type: "about"
 
 #### 联系方式
 
-* 邮箱：erbiduo@qq.com
-* QQ：157461501
+* 邮箱：calastaol@gmail.com
+* QQ：918946838
 * 手机：你见过博客放手机的吗？
 
 

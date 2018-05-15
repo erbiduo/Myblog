@@ -1,11 +1,11 @@
 ---
 title: Hexo博客搭建
 date: 2017-05-16 20:24:23
-categories: Hexo
+categories: 技术向
 tags: [Hexo,博客]
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg?imageMogr2/format/webp">
+![git官网](http://oohkvf5b9.bkt.clouddn.com/A01_hexoblog.jpg?imageMogr2/format/webp)
 搭个博客给记录下生活琐事、笔记以及传说中的奋斗史。
 <!--more-->
 

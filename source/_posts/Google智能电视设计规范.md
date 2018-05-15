@@ -1,12 +1,12 @@
 ---
 title: Google智能电视设计规范
 date: 2017-05-21 13:26:15
-categories: 交互设计
+categories: 设计向
 tags: [智能电视,设计规范]
 
 ---
 
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/A03_%20goolge.jpg?imageMogr2/format/webp">
+![image0](http://oohkvf5b9.bkt.clouddn.com/A03_%20goolge.jpg?imageMogr2/format/webp)
 
 电视的观看环境通常被描述为“10英尺环境”，电视屏幕也被描述为“10英尺的用户界面”。<!-- more -->当你为10英尺环境创建应用程序时，请记住以下基础概念：
 

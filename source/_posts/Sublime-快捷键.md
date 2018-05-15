@@ -1,11 +1,10 @@
 ---
 title: Sublime--快捷键
 date: 2017-05-23 16:24:23
-categories: Sublime
+categories: 技术向
 tags: [笔记,Sublime]
 ---
-
-<img class="full-image" src="http://oohkvf5b9.bkt.clouddn.com/20170509110936991.jpg?imageMogr2/format/webp">
+![img0](http://oohkvf5b9.bkt.clouddn.com/20170509110936991.jpg?imageMogr2/format/webp)
 
 Sublime常用快捷键笔记♥(๑> ₃ <)♥ ~ ~
 <!-- more -->
