@@ -3,7 +3,7 @@ node_js: stable
 # assign build branches
 branches:
   only:
-    - blog-source
+    - blog
 # cache this directory
 cache:
   directories:
@@ -16,7 +16,7 @@ before_install:
   - ssh-add ~/.ssh/id_rsa
   - cp .travis/ssh_config ~/.ssh/config
   - npm install -g hexo-cli # 安装 hexo
-  - git clone -b git@github.com:erbiduo/sagiri.git themes/sagiri
+  - git clone git@github.com:erbiduo/sagiri.git themes/sagiri
 install:
   - npm install # 安装 package.json 中的插件
 script:
