@@ -128,7 +128,7 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 #theme: false #禁用主题
 #theme: landscape
-theme: sagiri
+theme: sagiri_1
 
 # 配置RSS
 feed: 
