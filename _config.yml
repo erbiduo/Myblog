@@ -127,8 +127,8 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: false #禁用主题
-#theme: landscape
-theme: sagiri_1
+theme: mynext-white
+#theme: sagiri_1
 
 # 配置RSS
 feed: 
