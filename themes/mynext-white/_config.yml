@@ -141,7 +141,8 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social: #社交链接
   #LinkLabel: Link
-  Weibo: https://wangyiting.win/
+  花瓣: http://huaban.com/erduo/
+  Pinterest: https://www.pinterest.com/erduool/pins/  
 
 
 # Social Links Icons
@@ -161,10 +162,10 @@ social_icons: #社交的图标
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
 # in site  directory(source/uploads): /uploads/avatar.jpg
-avatar: http://oopnyngkm.bkt.clouddn.com/avatar1.png?imageMogr2/format/webp  #images/avatar.png
+avatar: images/avatar1.png
 
 # Logo
-logo: http://oopnyngkm.bkt.clouddn.com/logo.png?imageMor2/format/webp
+logo: images/logo.png
 desc: grasp all lose all
 
 # Table Of Contents in the Sidebar #文章自动显示目录
@@ -213,8 +214,8 @@ links_title: Friends
 #links_layout: block
 #links_layout: inline
 links:
-  毅先生的博客: http://www.weiyi.wiki/
-  yuki的技术博客: http://www.yuki.kim/
+  # 花瓣: http://huaban.com/erduo/
+  # pinterest: https://www.pinterest.com/erduool/pins/
 
 
 # ---------------------------------------------------------------
