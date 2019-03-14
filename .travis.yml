@@ -20,7 +20,8 @@ before_install:
   - ssh-add ~/.ssh/id_rsa
   - cp .travis/ssh_config ~/.ssh/config
   - npm install -g hexo-cli # 安装 hexo
-  - git clone git@github.com:erbiduo/mynext-white.git themes
+  - export HEXO_DEPLOYER_REPO=https://$REPO_TOKEN@github.com/erbiduo/Myblog.git
+  # - git clone git@github.com:erbiduo/mynext-white.git themes
 install:
   - npm install # 安装 package.json 中的插件
 script:
