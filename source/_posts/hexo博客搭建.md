@@ -3,6 +3,10 @@ title: Hexo博客搭建
 date: 2017-05-16 20:24:23
 categories: 技术向
 tags: [Hexo,博客]
+cover_img:  https://i.loli.net/2019/03/17/5c8e6058470b1.jpg?imageMogr2/format/webp   # 在文章摘要上显示
+feature_img:   # 在文章详细页面上置顶
+description:   # 文章描述
+keywords:      # 关键字
 ---
 
 搭个博客给记录下生活琐事、笔记以及传说中的奋斗史。

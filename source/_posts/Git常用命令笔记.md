@@ -3,7 +3,10 @@ title: Git常用命令笔记
 date: 2017-10-15 11:46:44
 categories: 技术向
 tags: [Git,笔记]
-
+cover_img: https://i.loli.net/2019/03/17/5c8e612b71c29.jpg?imageMogr2/format/webp   # 在文章摘要上显示
+feature_img:   # 在文章详细页面上置顶
+description:   # 文章描述
+keywords:      # 关键字
 ---
 
 由于各种原因，好久没有用，都忘的七七八八了，基础教程查看归纳比较累，还是整理了下笔记防止忘记吧！

@@ -3,9 +3,11 @@ title: Hexo自动备份及自启编辑器
 date: 2017-10-15 15:15:59
 categories: 技术向
 tags: [Hexo,博客]
+cover_img: https://i.loli.net/2019/03/17/5c8e616eeeee8.jpg?imageMogr2/format/webp    # 在文章摘要上显示
+feature_img:   # 在文章详细页面上置顶
+description:   # 文章描述
+keywords:      # 关键字
 ---
-
-![img0](http://oohkvf5b9.bkt.clouddn.com/A07_hexobackup.jpg?imageMogr2/format/webp)
 
 偷懒使人明智，Hexo博客自动备份方案~
 <!--more-->

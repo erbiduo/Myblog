@@ -3,6 +3,10 @@ title: Sublime--快捷键
 date: 2017-05-23 16:24:23
 categories: 技术向
 tags: [笔记,Sublime]
+cover_img:  https://i.loli.net/2019/03/17/5c8e60c0e94c1.jpg?imageMogr2/format/webp   # 在文章摘要上显示
+feature_img:   # 在文章详细页面上置顶
+description:   # 文章描述
+keywords:      # 关键字
 ---
 
 Sublime常用快捷键笔记♥(๑> ₃ <)♥ ~ ~
