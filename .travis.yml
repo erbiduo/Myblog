@@ -24,12 +24,12 @@ before_install:
   # - git clone git@github.com:erbiduo/mynext-white.git themes
 install:
   - npm install # 安装 package.json 中的插件
-script:
-  - hexo clean
-  - hexo generate
+  - npm install gulp
+# script:
+#   - hexo clean
+#   - hexo generate
 after_success:
   - git config --global user.name "erbiduo"
   - git config --global user.email "wyt157461501@gmail.com"
   - sed -i'' "/^ *repo/s~github\.com~${githubToken}@github.com~" _config.yml
-  - npm run blogupd
-  - hexo deploy
+  - npm run update
