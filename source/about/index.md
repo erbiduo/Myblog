@@ -5,7 +5,7 @@ date: 2019-03-17 16:49:06
 <h2 style="text-align: center ; margin-bottom: 20px;">关于本站</h2>
 
 Game UI
-记录心得、 笔记还有奋斗史。头图用的![狼小叁](https://www.artstation.com/bor)大作～
+记录心得、 笔记还有奋斗史。头图用的[狼小叁](https://www.artstation.com/bor)大作～
 
 #### 人生信条
 
