@@ -21,7 +21,7 @@ before_install:
   - cp .travis/ssh_config ~/.ssh/config
   - npm install -g hexo-cli # 安装 hexo
   - export HEXO_DEPLOYER_REPO=https://$REPO_TOKEN@github.com/erbiduo/Myblog.git
-  # - git clone git@github.com:erbiduo/mynext-white.git themes
+  - git clone https://github.com/erbiduo/hexo-casper.git themes/hexo-casper
 install:
   - npm install # 安装 package.json 中的插件
   - npm install gulp
