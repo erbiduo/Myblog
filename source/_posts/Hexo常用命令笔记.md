@@ -5,7 +5,6 @@ categories: 技术向
 tags: [Hexo,笔记]
 ---
 
-![img0](http://oohkvf5b9.bkt.clouddn.com/A04-hexonote.jpg?imageMogr2/format/webp)
 Hexo常用命令学习笔记♥(๑> ₃ <)♥ ~ ~
 <!--more-->
 

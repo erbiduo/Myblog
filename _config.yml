@@ -4,7 +4,7 @@
 
 # Site 网站信息
 #标题
-title: ERDUO
+title: ED
 #副标题
 subtitle: #小桥 · 流水 · 人家
 #网站描述
@@ -95,41 +95,41 @@ time_format: HH:mm:ss
 
 # Pagination 分页配置
 ## Set per_page to 0 to disable pagination
-per_page: 6
+per_page: 9
 pagination_dir: page
 
-# # 或使用插件分页配置
-# # ---------------下面选项需要对应插件的支持---------------
-# # npm install hexo-generator-index --save
-# # npm install hexo-generator-archive --save
-# # npm install hexo-generator-category --save
-# # npm install hexo-generator-tag --save
-# ## Set per_page to 0 to disable pagination
-# #每页显示的文章量 
-# #per_page: 20
-# #首页的分页设置
-# index_generator:
-#   per_page: 5
-# #归档页的分页设置
-# archive_generator:
-#   per_page: 30
-#   yearly: true
-#   monthly: true
-# #标签页的分页设置
-# tag_generator:
-#   per_page: 20
+# 或使用插件分页配置
+# ---------------下面选项需要对应插件的支持---------------
+# npm install hexo-generator-index --save
+# npm install hexo-generator-archive --save
+# npm install hexo-generator-category --save
+# npm install hexo-generator-tag --save
+## Set per_page to 0 to disable pagination
+#每页显示的文章量 
+#per_page: 20
+#首页的分页设置
+index_generator:
+  per_page: 9
+#归档页的分页设置
+archive_generator:
+  per_page: 30
+  yearly: true
+  monthly: true
+#标签页的分页设置
+tag_generator:
+  per_page: 20
 
-# #分页路径，在public中可以看到
-# #pagination_dir: page
+#分页路径，在public中可以看到
+#pagination_dir: page
 
 
 # Extensions  主题配置
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 #theme: false #禁用主题
-theme: mynext-white
+# theme: mynext-white
 #theme: sagiri_1
-# theme: hexo-casper
+theme: hexo-casper
 
 # 配置RSS
 feed: 

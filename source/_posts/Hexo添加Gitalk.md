@@ -4,7 +4,6 @@ date: 2017-10-28 19:47:47
 categories: 技术向
 tags: [Hexo]
 ---
-![img0](http://oohkvf5b9.bkt.clouddn.com/A08_giralk.jpg?imageMogr2/format/webp)
 
 特殊时段，好多“红杏“类软件都扑街了，而且disqus在国内的加载速度那个惨啊，搞个Gitalk试试喽～
 <!--more-->
@@ -41,11 +40,8 @@ import Gitalk from 'gitalk'
 
 2. 创建`OAuth Application`，没有的小伙伴[请戳我](https://github.com/settings/applications/new)。 
 
-![2](http://oohkvf5b9.bkt.clouddn.com/A08_2.png)
-
 完成后会生成相应的`clientID`and`clientSecret`。
 
-![3](http://oohkvf5b9.bkt.clouddn.com/A08_3.png)
 
 ### 修改主题文件
 
@@ -106,5 +102,3 @@ gitalk:
 ```
 
 哦了，不过Gitalk在移动端属于隐形状态。
-
-![看不见](http://img4.duitang.com/uploads/item/201510/15/20151015163223_MjVkW.jpeg)

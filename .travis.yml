@@ -31,4 +31,5 @@ after_success:
   - git config --global user.name "erbiduo"
   - git config --global user.email "wyt157461501@gmail.com"
   - sed -i'' "/^ *repo/s~github\.com~${githubToken}@github.com~" _config.yml
+  - npm run blogupd
   - hexo deploy
