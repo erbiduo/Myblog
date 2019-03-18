@@ -3,7 +3,7 @@ title: Mac升级Nodejs和Npm
 date: 2017-10-28 19:57:04
 categories: 技术向
 tags: [Mac,笔记]
-cover_img:  https://i.loli.net/2019/03/17/5c8e61c962eda.jpg?imageMogr2/format/webp   # 在文章摘要上显示
+cover_img:  https://i.loli.net/2019/03/17/5c8e61c962eda.jpg   # 在文章摘要上显示
 feature_img:   # 在文章详细页面上置顶
 description:   # 文章描述
 keywords:      # 关键字
