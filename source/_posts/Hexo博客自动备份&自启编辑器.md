@@ -3,7 +3,7 @@ title: Hexo自动备份及自启编辑器
 date: 2017-10-15 15:15:59
 categories: 技术向
 tags: [Hexo,博客]
-cover_img: https://i.loli.net/2019/03/17/5c8e616eeeee8.jpg    # 在文章摘要上显示
+cover_img: https://ws1.sinaimg.cn/large/0069qIgcgy1g17wvesy79j30jg09q75a.jpg    # 在文章摘要上显示
 feature_img:   # 在文章详细页面上置顶
 description:   # 文章描述
 keywords:      # 关键字

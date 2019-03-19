@@ -3,7 +3,7 @@ title: Sublime--快捷键
 date: 2017-05-23 16:24:23
 categories: 技术向
 tags: [笔记,Sublime]
-cover_img:  https://i.loli.net/2019/03/17/5c8e60c0e94c1.jpg   # 在文章摘要上显示
+cover_img: https://ws1.sinaimg.cn/large/0069qIgcgy1g17wvf04fej30jg09q405.jpg   # 在文章摘要上显示
 feature_img:   # 在文章详细页面上置顶
 description:   # 文章描述
 keywords:      # 关键字
