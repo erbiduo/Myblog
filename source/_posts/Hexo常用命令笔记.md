@@ -3,7 +3,7 @@ title: Hexo常用命令笔记
 date: 2017-10-14 14:08:56
 categories: 技术向
 tags: [Hexo,笔记]
-cover_img:  https://ws1.sinaimg.cn/large/0069qIgcgy1g17wvew28wj30jg09qdh8.jpg    # 在文章摘要上显示
+cover_img:  https://i.loli.net/2019/04/14/5cb2fa1035bb5.jpg    # 在文章摘要上显示
 feature_img:   # 在文章详细页面上置顶
 description:   # 文章描述
 keywords:      # 关键字
