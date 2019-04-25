@@ -3,7 +3,7 @@ title: 黑苹果macOS 10.14 Mojave安装
 date: 2019-4-14 19:32:04
 categories: 技术向
 tags: [黑苹果,笔记,转载]
-cover_img:  https://i.loli.net/2019/04/14/5cb2fa11da775.jpg   # 在文章摘要上显示
+cover_img:  https://i.loli.net/2019/04/25/5cc12cf918c09.jpg   # 在文章摘要上显示
 feature_img:   # 在文章详细页面上置顶
 description:   # 文章描述
 keywords:      # 关键字
