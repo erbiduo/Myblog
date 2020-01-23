@@ -5,6 +5,13 @@
   "hexo": {
     "version": "3.8.0"
   },
+  "yuqueConfig": {
+    "baseUrl": "https://www.yuque.com/api/v2",
+    "login": "dg5g8r",
+    "repo": "blog",
+    "mdNameFormat": "title",
+    "postPath": "source/_posts/yuque"
+  },
   "dependencies": {
     "hexo": "^3.8.0",
     "gulp": "^3.9.1",
@@ -32,6 +39,8 @@
     "gulp-uglify": "^3.0.0"
   },
   "scripts": {
-    "update": "hexo clean && hexo g && gulp build && hexo deploy"
+    "sync": "yuque-hexo sync",
+    "clean:yuque": "yuque-hexo clean",
+    "update": "npm run sync && hexo clean && hexo g && gulp build && hexo deploy"
   }
 }
