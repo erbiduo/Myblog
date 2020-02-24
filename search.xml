@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>黑苹果macOS 10.14 Mojave安装</title>
+    <url>/2019/04/14/%E9%BB%91%E8%8B%B9%E6%9E%9CmacOS%2010.14%20Mojave%E5%AE%89%E8%A3%85.html</url>
+    <content><![CDATA[<h2 id="黑苹果macOS-10-14-Mojave安装"><a href="#黑苹果macOS-10-14-Mojave安装" class="headerlink" title="黑苹果macOS 10.14 Mojave安装"></a>黑苹果macOS 10.14 Mojave安装</h2><p>本文<a href="https://post.smzdm.com/p/az597lqo/" target="_blank" rel="noopener">转载</a>。<br><a href="https://post.smzdm.com/p/ax08lz74/" target="_blank" rel="noopener">VMware安装macOS教程</a></p>
+<p>现在黑苹果越来越简单，工具和驱动都在不断丰富，只要你认真读懂了这篇文章，机器是近三代常规硬件（N卡不行），一般都可以实现黑果，难度很小，全文很多关于Clover的设置选项及功能都是我自己研究、尝试得出的资料，全部看懂可以省下你一两年的折腾。</p>
+<h2 id="黑苹果知识获取"><a href="#黑苹果知识获取" class="headerlink" title="黑苹果知识获取"></a>黑苹果知识获取</h2><ul>
+<li><a href="http://www.tonymacx86.com/" target="_blank" rel="noopener">tonymacx86.com</a>：这是国外的一个黑苹果论坛，上面有几位非常厉害的Clover和相关Kexts维护者，不收费有详细教程，首推论坛！</li>
+<li><a href="http://www.insanelymac.com/" target="_blank" rel="noopener">insanelyMac</a>：国外一个比较早的一个黑苹果论坛，就是在上文中<a href="http://www.osx86project.org/" target="_blank" rel="noopener">osx86社区</a>衍生而来的论坛，人数也不少，但是我用的较少，了解不多，有时候下载的会到这边来。</li>
+<li><a href="http://www.github.com/" target="_blank" rel="noopener">github</a>：Github也是一个非常好的黑果资源搜索器，首先大部分的Kexts开发者都把库放到了这里，其次很多现成现成的EFI也在上边，在这里我发现了最佳黑苹果笔记本——XPS 9360顶配。</li>
+<li><a href="http://bbs.pcbeta.com/" target="_blank" rel="noopener">远景论坛</a>：算是国内最大的黑苹果论坛，最早我接触黑苹果的时候就是在威锋x86和远景，相对而言威锋x86很多资料都太老了，置顶的精华都是好几年前的，对现在根本没有帮助，所以国内论坛首选远景，国内比较知名的黑果开发者也在上面混，但是远景也有很多问题，首先貌似现在是不开放的状态，注册要邀请码，其次远景曾经有一年左右时间存在问题，域名解析或者<a href="https://www.smzdm.com/fenlei/fuwuqi/" target="_blank" rel="noopener">服务器</a>挂了，最最重要的是远景知识不成体系，很多时候大家都是做了个EFI分享出来完事儿，究竟怎么做的，重点在哪里，这个比较少，而且很多资源都是搬运国外的东西，个人建议你如果黑苹果水平还不错，闲来看看别人在玩啥可以，但别想着从这里学会东西。</li>
+<li>诸多个人论坛：这个需要个人收集，国内的有国光、黑果小兵，国外的nickwoodhams等等，先不用急着看，个人建议先从tonymacx86看起。</li>
+</ul>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><p>macOS 10.14.3 Mojave</p>
+<h3 id="本机电脑配置"><a href="#本机电脑配置" class="headerlink" title="本机电脑配置"></a>本机电脑配置</h3><p>处理器：intel i7 6400T<br>主板：华擎Z170 OC Formula<br>内存：海盗船DDR4 3000 C15 8G<br>固态：<a href="https://pinpai.smzdm.com/257/" target="_blank" rel="noopener">三星</a>SM961 256G<br>显卡：蓝宝石RX 570超白金</p>
+<h3 id="准备工具"><a href="#准备工具" class="headerlink" title="准备工具"></a>准备工具</h3><ol>
+<li>Clover Configuration</li>
+<li>Clover v4658 or newer/newest Clover of RehabMan Build</li>
+<li>8G+U盘一只</li>
+<li>支持UEFI启动的目标电脑，CPU要求Ivy Bridge及更新的处理器，Sandy Bridge及更老处理器请自行研究</li>
+</ol>
+<h2 id="关于硬件的兼容性问题"><a href="#关于硬件的兼容性问题" class="headerlink" title="关于硬件的兼容性问题"></a>关于硬件的兼容性问题</h2><p>在开始之前我要简单谈谈关于硬件的兼容性问题，<br>一般来说本文只要是Ivy Bridge之后的CPU都没什么问题，如果是SandyBridge处理器，由于Mojave不支持Sandy Bridge平台安装，请在Clover Boot arguments中添加 <code>-no-compat_check</code> 来跳过Mojave的兼容性检查。<br>固态方面：NVME固态包括但不限于建兴、海力士等部分型号和三星PM981，这些固态的主控macOS不认，所以安装根本找不到，SATA固态则没有这个问题。<br>显卡方面：目前只推荐Intel核显和AMD RX460/470/480/560/570/580和Vega 56/64，需要注意2048sp的RX 580是不能用的。</p>
+<h2 id="创建macOS-Install-USB-Drive"><a href="#创建macOS-Install-USB-Drive" class="headerlink" title="创建macOS Install USB Drive"></a>创建macOS Install USB Drive</h2><p>从这篇文章起，我们就真正的开始进入安装黑苹果的阶段，现在我们已经知道，一台Intel处理器的电脑安装黑苹果，实际上是由BIOS Legacy或者UEFI引导第三方EFI启动器，例如Clover，来实现启动macOS。目前最主流的方案是UEFI+Clover创建、安装、引导macOS Mojave，所以我们首先需要创建macOS Mojave的安装U盘。</p>
+<p>很多人不明白为什么我要在第一篇文章中使用U盘来安装虚拟机macOS Mojave，而不是使用vmdk硬盘镜像。事实上这种安装方法能节省我们创建U盘的时间，不需要再下载第二次macOS安装镜像文件。对于我们来说我们直接将U盘连接到虚拟机macOS中，然后在U盘的EFI分区中安装Clover即可。</p>
+<p>但是为了让手头有Macbook Pro等设备而没进行第一篇安装虚拟机操作的人也能创建黑苹果安装U盘，我将会讲解一次从空白的U盘到创建U盘镜像的完整过程，<strong>已经按照第一篇文章使用U盘安装虚拟机的可以跳过这个步骤。进入下一段！</strong></p>
+<p>首先，我们下载最新版本的Mojave，这可以从App Store中下载</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30c7642f2d.png" alt="App Store下载Mojave">App Store下载Mojave</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30c72af663.png" alt="勾选获取">勾选获取</p>
+<p>弹出偏好中的系统更新，然而不知道为什么下载失败，不清楚是否由于虚拟机环境造成，实体机应该不会有这样的现象。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30c6d7bb6f.png" alt="失败">失败</p>
+<p>故我只能剑走偏锋，经过google搜索how to reinstall mojave，我发现了一个小软件名为macOS Mojave Patcher。通过Patcher内置的Tools可以下载Mojave。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30c7486ec3.png" alt="macOS Mojave Patcher">macOS Mojave Patcher</p>
+<p>确认后即可开始下载。</p>
+<p><strong><img src="https://i.loli.net/2019/04/14/5cb30c6f701a6.png" alt="Download macOS">Download macOS</strong></p>
+<p>总体来说下载速度并不慢</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30c6e65972.png" alt="下载过程">下载过程</p>
+<p>下载完毕后在/Application目录下就可以找到Install macOS Mojave的安装器。我们既可以使用macOS Mojave Patcher创建U盘，也可以用命令行创建，我两种方法都演示一遍：</p>
+<p>首先是macOS Mojave Patcher，点击左边的icon，跳出选择安装app，我们选择/Application/Install macOS Mojave，点击打开。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30c7061d71.png" alt="在软件中可以直接烧录">在软件中可以直接烧录</p>
+<p><strong><img src="https://i.loli.net/2019/04/14/5cb30c716f29a.png" alt="选择Mojave安装文件">选择Mojave安装文件</strong></p>
+<p>接着再点击右侧的Target Disk，选择U盘为目标磁盘，接下来点击Start Operation就开始烧录了。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e2ee988f.png" alt="安装到对应磁盘">安装到对应磁盘</p>
+<p>第二种方法是使用Terminal创建，需要对命令行有一定的熟悉。</p>
+<p>首先将U盘插入虚拟机或者MacBook Pro，打开macOS自带的Terminal终端，输入<code>diskutil list</code> ，输出如下图所示。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e2a53c77.png" alt="查看磁盘分区">查看磁盘分区</p>
+<p>从图中可以看出，我的电脑有3个磁盘，disk0是真正的物理磁盘，分为两个分区，disk0s1是EFI引导分区，disk0s2则是APFS文件系统的容器，这个容器虚拟化成disk1，再在其中分为4个分区，分别为安装系统的Macintosh HD、不知道干什么用的Preboot、恢复使用的Recovery分区和最后描述APFS文件虚拟化的VM分区。而disk3则是我的U盘，所以现在我们已经知道了disk3是我们要操作的对象。</p>
+<p>diskutil partitionDisk /dev/disk3 1 GPT HFS+J “install_osx” R</p>
+<p>diskutil是磁盘管理命令，partitionDisk表示对目标磁盘进行格式化，/dev/disk3则是U盘对应的硬件名（因为在Unix下任何硬件都对应着一个文件），1表示除EFI分区外只留下一个分区，GPT意味着使用GUID分区图，HFS+J使用HFS分区文件系统，install_osx则是格式化后的分区名。输出结果如图所示：我们已经创建了一个200M+的EFI分区（苹果引导EFI区必须要大于200M）和一个15.7GB的分区。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e2c1d7c6.png" alt="划分U盘分区">划分U盘分区</p>
+<p>接下来我们要使用命令创建安装U盘。输入以下命令：</p>
+<p>sudo /Applications/Install macOS Mojave.app/Contents/Resources/createinstallmedia –volume  /Volumes/install_osx –nointeraction</p>
+<p>sudo表示调用超级管理员权限，意味着等会儿执行命令需要输入账户密码，后面跟的/Applica-&gt;media则表示使用这个路径的命令，—volume后面的表示目标分区为U盘。执行命令后将会格式化U盘并COPY系统安装文件。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e29821f6.png" alt="烧录完成">烧录完成</p>
+<h1 id="Create-Clover-EFI-and-Configuration"><a href="#Create-Clover-EFI-and-Configuration" class="headerlink" title="Create Clover EFI and Configuration"></a>Create Clover EFI and Configuration</h1><p>接下来我们需要对U盘的EFI分区安装Clover，这里既可以使用sourceforge上托管的Clover master branch，也可以使用其他人fork的Clover分支，我比较习惯使用RehabMan在Bitbucket上fork的CloverRM版，诸位可自行下载。打开Clover，点击继续，确认许可协议</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e2b48f5f.png" alt="Clover-1">Clover-1</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e2e027ea.png" alt="Clover-2">Clover-2</p>
+<p>接下来我们选择更改安装位置，选择我们的U盘。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e27da14d.png" alt="修改安装位置">修改安装位置</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e2d116ee.png" alt="定位到U盘">定位到U盘</p>
+<p>点击继续重新回到上级界面，这次我们选择自定。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30e28abc5b.png" alt="选择自定安装">选择自定安装</p>
+<p>自定的内容非常多，我们需要详细讲解一下</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f250f25c.png" alt="Clover自定安装">Clover自定安装</p>
+<p>由于我们使用UEFI启动而非BIOS Legacy，所以勾选仅安装UEFI开启版本，与此同时安装Clover到EFI系统区也会自动勾选，Bootloader和CloverEFI则无法选中（因为这两项是跟BIOS Legacy启动有关，如果想BIOS引导安装请自行研究），勾选开机主题，这样我们的启动界面能设置各式各样的主题更换。勾选UEFI开机版本后，BIOS Drivers和FileVault 2 BIOS Drivers也会自动隐藏。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f260172a.png" alt="配置主题">配置主题</p>
+<p>接下来就是最最重要的UEFI Drivers配置，点击左侧的三角箭头展开如下图所示：</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f26df334.png" alt="配置UEFI Drivers">配置UEFI Drivers</p>
+<ul>
+<li>ApfsDriverLoader-64 &amp; AppleImageLoader-64这两个是用来替代macOS原生APFS.efi，在High Sierra之后的版本，苹果公司将磁盘分区从HFS更换为了APFS，早期Clover不带这两个efi，所以需要使用macOS中提取的apfs.efi来引导apfs磁盘，但是原生apfs会出现代码，为了好看和方便，现在的Clover已经自带了apfs引导efi了。这两个驱动必须勾选。</li>
+<li>AptioMemoryFix-64是用于处理引导初始阶段的UEFI内存分配修正efi，同类efi还有OsxAptioFix3Drv-64.efi/OsxAptioFix2Drv-64.efi/OsxAptioFixDrv-64.efi/OsxLowMemFixDrv-64.efi，千万千万注意，一个Clover引导EFI中只能有一个MemFixDrv，不然会出现错误，如果说你使用AptioMemoryFix在初始分配内存时就出错，那么可以尝试考虑更换为后面几个（也要一个个替换，千万别一堆安装上去）。这个驱动也必须要勾选。</li>
+<li>DataHubDxe-64是macOS要求强制启动的协议，虽然大部分情况下都是启动的，但是有备无患，而且这个efi不会引起崩溃，大家都勾选即可。</li>
+<li>FSInject-64必须勾选，正常情况下，我们需要对黑苹果注入kernal kext，这个是必备efi。</li>
+<li>SMCHelper-64是和FakeSMC联动的efi，smc是苹果为了限制非Apple设备安装macOS的东西，所以这个必须勾选。</li>
+<li>CsmVideoDxe-64是在CSM开启情况下提供更多的分辨率的efi，由于我们是纯粹的UEFI启动，所以不装（这玩意儿装了可能会出错）。</li>
+<li>EmuVariableUefi-64是对某些UEFI启动无法调用NVRAM的机器提供的NVRAM模拟，部分Skylake架构的机器会需要这个efi（真的是很小一部分，我装过Skylake三台机器，都没有用过这个efi），我建议只有在出错告知你需要这玩意儿的时候再调整，虽然这玩意儿装了好像也不会导致崩溃，但是我不确认本来NVRAM正常的机器装上这个会不会就不调用硬件NVRAM了。所以我这里也不勾选。</li>
+<li>PartitionDxe-64主要用于处理macOS的Hybrid磁盘分区表，这个是Bootcamp中用到的，我们没啥用，不用勾选。</li>
+</ul>
+<p>剩下的都没什么好讲的，基本用不到，很多都是历史遗留，原来有用，现在已经被macOS原生支持了，不需要再添加。点击安装：需要输入密码。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f27cf55f.png" alt="安装Clover">安装Clover</p>
+<p>安装完毕。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f242f391.png" alt="安装完毕">安装完毕</p>
+<p>与此同时，在桌面上我们也可以看到EFI分区已经被挂载。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f29cb7e0.png" alt="EFI分区出现">EFI分区出现</p>
+<p>Clover文件结构如下图所示</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f28c2dac.png" alt="Clover EFI文件结构">Clover EFI文件结构</p>
+<p>BOOT<a href="https://www.smzdm.com/fenlei/wenjianjia/" target="_blank" rel="noopener">文件夹</a>下有BOOTX64.efi，UEFI首先引导这个文件，然后BOOTX64.efi再进一步引导CLOVER目录下的CLOVERX64.efi，进入CLOVER引导流程，接下来我们一一讲解各个文件夹作用：</p>
+<ul>
+<li>ACPI文件夹主要用于保存CLOVER引导时按F4提取的电脑ACPI表，保存在origin子目录下，我们进一步修改需要替换的DSDT和SSDT则需要保存在ACPI/patched目录下，目前我们用不到</li>
+<li>config.plist则是Clover引导最最重要的配置文件，默认安装Clover是空文件，我们需要尽量找已经配置好、配置相近的成品config.plist进行替换。</li>
+<li>doc文件夹下都是一些描述介绍Clover的用途和用法文件，可以整个删除</li>
+<li>drivers64文件夹下主要是BIOS Legacy引导时需要加载的driver，我们使用UEFI引导可以整个删除</li>
+<li>drivers64UEFI文件夹是UEFI引导时需要加载的driver，我们在接下来还需要修改。</li>
+<li>kexts文件夹下保存着需要注入macOS中的kernel kexts，非常重要，里面有10.6-10.14的子文件夹和other子文件夹，一般情况下，我们会删除10.6-10.14子文件夹 ，只保留other文件夹，所有的kext保存在other文件夹下。</li>
+<li>misc文件夹是保存preboot文件和vbios文件，一般情况下用不到，可以整个删掉。</li>
+<li>OEM文件夹也无用，可以整个删掉</li>
+<li>themes保存着Clover主题文件，例如我们现在就保存了BGM和Metal主题</li>
+<li>tools保存着efi shell，不做修改。</li>
+</ul>
+<p>总结一下，这里面目前最重要的就是config.plist/kexts/drivers64UEFI这三位，接下来我们就需要找到一个相近的config.plist文件来替换现有的config.plist，因为自己研究config.plist的写法太繁琐太困难，我们只要找到类似的config.plist进行小小的修改更加方便。这就是为什么很多人推荐如果打算进行黑苹果，最好能找已经有人配置成功的类似配置进行组装DIY，因为别人成功表示你也大概率可以，而且它的config.plist你可以借鉴甚至直接拿来用，省心省事儿，像我更愿意有一位大牛在前面帮我做好引导，我只需要简单拿来用就好。</p>
+<p>RehabMan的github上有OS-X-Clover-Laptop-Config库，诸位可以自行寻找相近配置进行替换，本机采用Intel io7 6400T处理器，内置HD 530核显，应该是比较容易驱动的，但是这次我用了一张RX570，故没核显什么事情，所以我选择了同为14nm架构的Skylake中选择config，最终选择了config_HD515_520_530_540.plist。复制到Clover文件夹中重命名为config.plist替换原有文件。</p>
+<p>接下来我们需要安装Clover Configuration来对EFI中的Clover进一步配置。Clover Configuration界面如图所示：</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f2dc5cd5.png" alt="Clover Configuration">Clover Configuration</p>
+<p>打开EFI分区中的config.plist，如图所示</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f2c698d6.png" alt="ACPI">ACPI</p>
+<p>在左侧标签栏中选择Boot，Boot Argument保留-v dart=0和debug=0x100，Timeout改为-1，其他随意，Timeout是关于Clover引导时的等待时间，-1表示一直等待除非你选择某个启动。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30f2b10aff.png" alt="Boot">Boot</p>
+<p>这里也要详细说明下Boot Argument，你可以理解为启动参数，不同的启动参数用于开启不同的功能，有些kext也需要启动参数进行配置，右键可以添加。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30fe84c61f.png" alt="Argument">Argument</p>
+<ul>
+<li>-v是调试模式，在加上这个参数后macOS启动和关机将不会是苹果LOGO+进度条，取而代之则是引导时各种信息提示和BUG提示。在安装的时候推荐勾选。</li>
+<li>-s是单用户模式，我也没用过</li>
+<li>-x是安全模式，没用过</li>
+<li>npci=0x2000/npci=0x3000是针对X99用户需要添加的参数，不然会卡PCI Configuration Begin</li>
+<li>-xcpm是使用XNU CPU PowerManagement</li>
+<li>cpus=1是强制只使用1个核心启动，避免由于CPU核心过多导致的引导错误</li>
+<li>dart=0是禁用vt-d，macOS不支持vt-d，所以需要在BIOS中关闭，但是本人玩esxi喜欢开着，所以就需要添加dart=0</li>
+<li>debug=0x100是在遇到panic时不要自动重启，这样我们能在调试状态下看到卡在哪个地方</li>
+<li>nvda_drv=1是加载Nvidia Web Driver，N卡用户在安装完Web Driver后需要启用，但是目前Web Driver卡在macOS 10.13.6，Mojave没有Web Driver Release，很有可能会一直停滞，因为Apple希望发展自己的Metal替代CUDA，所以目前安装黑苹果推荐要么核显要么RX4xx/5xx/Vega xx（RX 580 2048sp不可用）</li>
+<li>nv_disable=1在没有安装Web Driver之前，所有N卡用户必须要加上这条禁用macOS自带的Nvidia驱动。</li>
+<li>kext-dev-mode=1是早期遗留，在Sierra之前需要这条命令起到sudo的作用。</li>
+<li>rootless=0同上，也是历史遗留</li>
+<li>下面的Lilu/AppleALC/CPUFriend等等都是需要配合相应的kext才能起作用，建议去github自行查询相应的用处。</li>
+</ul>
+<p>在CPU选项卡中，如果是Skylake以上的处理器可以开启HWPEnable，勾选圈圈中的两个选项即可启动。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30ff0bb872.png" alt="CPU">CPU</p>
+<p>Disable Drivers选项卡中的设置则和之前的Driver64UEFI息息相关，如果在这里添加了某个Drivers，那么即使在前面那个文件夹中有efi，也不会被引导，RehabMan的配置文件中默认关闭VBoxHfs，因为太老了，性能较差，我们在接下来会下载HFSPlus-64替代。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30fe959d91.png" alt="Disable Drivers">Disable Drivers</p>
+<p>GUI选项卡一般不需要做大改动，如果要引导Linux，请勾选Scan下的Linux，在右侧可以配置主题，例如我们这里选择BGM作为主题，最右边还可以隐藏Volume，一般情况下我们隐藏Preboot和Recovery。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30fece5a34.png" alt="GUI">GUI</p>
+<p>在Graphics中我们可以对显卡进行ID注入，Intel核显用户请输入正确ig-platform-id并勾选inject Intel，具体ig-platform-id可以参考黑果小兵整理的Intel核显platform-id，由于我们是AMD RX 570 4G，除了要在kext包中添加WhateverGreen之外，还需要勾选RedeonDeInit，具体原因参照Tonymacx86-Post Install-Graphics-Radeon Compatibilty Guide As Follow:</p>
+<blockquote>
+<p>Many modern AMD GPUs are incorrectly initialized during boot phase, which will can lead to serious issues in OS X (e.g. boot to black screen or crash after sleep/wake). This was first solved by the WhateverGreen Lilu plugin. Extensive research has been done by Mieze, resulting in a DSDT patch. This knowledge has been incorporated into Clover (starting with rev. 4296) and can be enabled from the config.plist</p>
+</blockquote>
+<p>Inject ATI和Inject NVidia一般都不用勾选，这是对老显卡的支持。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30fea86c87.png" alt="Graphics">Graphics</p>
+<p>Kernel and Kext Patches则是一些高手们定制出来的补丁，通过这种方式进行热修复，这里要说下比较关键的MSR 0xE2问题，在真实的Mac电脑上，OSX XCPM PowerManagement需要对BIOS中MSR 0xE2这块区域进行读写，然而，很多主板把这个区域锁了起来，不允许读取修改，ASUS主板印象中是全线都锁，所以这就导致了Kernel Panic，根本无法引导，以前很多人说技嘉的主板容易黑，那就是因为技嘉几乎全线都是Unlock的，所以我们经常会说到BIOS中的CFG Lock需要Disable。但很多主板BIOS中根本没有这个选项，</p>
+<p>第一种方法是CodeRush开发的UEFIPatch可以让我们解锁MSR 0xE2选项，但是相对比较麻烦<br>第二种方法我们可以在KernelToPatch中添加由Pike R.Alpha的“xcpm_core_scope_msrs”补丁，并且勾选kernelPM，补丁如下：</p>
+<p>Find: 31 d2 e8 91 fc ff ff Replace: 31 d2 90 90 90 90 90</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3113c8a3e2.png" alt="Kernel and Kexts to Patch">Kernel and Kexts to Patch</p>
+<p>SMBIOS代表你这个机器的型号，点击圈圈内的按钮可以选择不同的机型，尽量选择同代CPU机型仿冒，这里我选择同为Skylake架构的iMac 17,1。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30fee2d09d.png" alt="SMBIOS">SMBIOS</p>
+<p>回到Rt Variables，我们点击Generate创建ROM</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30fef6f4a2.png" alt="RT Variable">RT Variable</p>
+<p>最后在System Parameters中我们Generate UUID，在inject Kexts中选择Detect，这里Detect表示如果在/System/Library/Extensions或者/Library/Extensions文件夹中有同样的kext，clover就不会注入，如果没有，就会注入，个人觉得最好，而Yes表示无论如何都注入，No表示不注入kext。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30ff33f9cf.png" alt="System Parameters">System Parameters</p>
+<p>Clover Configuration的左下侧则是一些小工具，例如Mount EFI可以非常方便的挂载系统和U盘的EFI分区</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30ff1e6a55.png" alt="Mount EFI">Mount EFI</p>
+<p>Install Drivers则可以非常方便下载EFI Drivers，我们这里就需要使用这个工具下载HFSPlus-64.efi，否则在Clover中我们根本看不到Install Mojave。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb30febb7b84.png" alt="Install Drivers">Install Drivers</p>
+<p>kexts Installer中我们可以非常方便的下载一些必要的Kexts，需要注意，OS Version要选择Other，这样所有的kext都会被下载到Kexts/Other文件夹下。我们这里需要Lilu/WhateverGreen/FakeSMC/USBInjectAll：</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb311ee6c7a8.png" alt="Kexts Installer">Kexts Installer</p>
+<p>简单的说一下这些Kext各自的作用，为了大家能理解作用，请详细阅读下段文字，挑选自己需要的kext！</p>
+<ul>
+<li>Lilu是一个由acidanthera写的辅助性Kext，它本身没有什么作用，但是它能帮助其它kext注入，并且提供了一套独特的API，所以很多Kext需要它的存在才能发挥作用，依赖它的Kext有：AirportBrcmFixup/AppleALC/ATH9KFixup/BT4LEContiunityFixup/CPUFriend/DiskArbitrationFixup/HibernationFixup/NightShiftUnlocker/NoTouchID/NoVPAJpeg/VirtualSMC/WahteverGreen，所以这个驱动几乎是必备的。</li>
+<li>VirtualSMC是用来取代FakeSMC的新一代kext，也是由acidanthera写的，但是目前BUG较多，我基本是不用的</li>
+<li>WhateverGreen可以说是GPU kext的集大成制作，集合了CoreDisplayFixup/BrcmWLFixup/EnableLidWake/AppleBlacklightFixup/AzulPatcher4600/IntelGraphicsDVMTFixup/IntelGraphicsFixup/NvidiaGraphicsFixup/Shiki等kext，基本能解决除N卡Web Driver没有外所有的显卡问题。也是由acidanthera编写，必备驱动。如果你使用的是4K屏幕，请在Boot Argument中加入-cdfon。</li>
+<li>AppleALC同样由acidanthera编写，主要是为了对那些不支持的声卡进行修复，让其正常工作，之后的文章我们会对其深入讲解。</li>
+<li>AirportBrcmFixup则是针对无线网卡的驱动和Airport功能的修复。</li>
+<li>NoVPAJpeg是针对macOS 10.14下Preview和QuickLook存在问题而添加的。</li>
+<li>CPUFriend是开启动态CPU电源管理时需要用到</li>
+<li>FakeSMC是最最最最最最最重要的Kext，没有之一，RehabMan出品。因为macOS的安装需要SMC，这个kext的作用就是模拟SMC，让macOS安装可以正常进行，这个必须要有！此外FakeSMC还有一系列插件 （FakeSMC_ACPISensors.kext, FakeSMC_CPUSensors.kext, FakeSMC_LPCSensors.kext, FakeSMC_GPUSensors.kext），如果你要使用HWMonitor监测CPU数据，就需要安装这些插件。</li>
+<li>USBInjectAll是针对macOS有USB Port数量限制而设计出来的，RehabMan出品。在macOS10.11之后，USB特别多的主板，例如Z系列X系列要么破解USB Port Limit要么针对本机定制USBInjectAll，之后的文章我们会深入讲解。</li>
+<li>VoodooPS2Controlller：如果你是笔记本，请加入这个驱动，这个主要是为了提供PS2支持，因为<a href="https://www.smzdm.com/fenlei/taishiji/" target="_blank" rel="noopener">台式机</a>很少用到PS2，所以可以不加，但是笔记本的键盘、<a href="https://www.smzdm.com/fenlei/chukongban/" target="_blank" rel="noopener">触控板</a>大多数都是使用PS2端口，所以一定要加。</li>
+<li>NullCPUPowerManagement：如果你卡在了ApplePowerManagement说明CPU原生电源管理失败，就需要这个驱动来关闭CPU原生电源管理。</li>
+<li>ACPIBatteryManagement：笔记本电池管理需要用到，但是安装的时候不加没关系，之后的文章详细讲解笔记本电池ACPI修复的时候会讲解。</li>
+<li>FakePCIID：仿冒PCI设备的一些Kext依赖它，属于辅助性kext。驱动无线网卡的时候要用到，RehabMan出品。</li>
+<li>GenericUSBXHCI：其实我本不想描述这个Kext，因为这个Kext是针对Sandy Bridge架构及更早的处理器不支持USB3.0，所以主板自作聪明添加了第三方USB3，这时候就需要这个驱动来实现正常工作，对我们没啥用处。</li>
+<li>RealtekRTL8111/RealtekRTL8100/AppleIntelE1000e/IntelMausiEthernet/AtherosE2200Ethernet这些则是有线网卡驱动，可以根据自己的网卡型号挑选，无线网卡和蓝牙部分我们下次详细展开讲。</li>
+</ul>
+<p>这块主板是Intel i219-V的网卡，所以还需要额外安装IntelMausiEthernet。这些都可以在tonymacx86上下载到。最终Kext文件夹如图所示，只要能安装就好，完善之后再做。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb311ed37f85.png" alt="驱动目录">驱动目录</p>
+<p>Intel核显用户特别注意，Broadwell和Skylake处理器在macOS下都要求DVMT-Prealloc最起码在64M及以上，但是很多BIOS都不支持更改，所以config中一般默认添加了一个minStolenSize的patch，将macOS的要求从64M改为32M，它在config.plist/Devices/Properties/PciRoot(0)/Pci(0x02,0)中存在。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb311efa7dbe.png" alt="image.png">image.png</p>
+<h2 id="设置BIOS"><a href="#设置BIOS" class="headerlink" title="设置BIOS"></a>设置BIOS</h2><ul>
+<li><p>关闭vt-d：但是由于本人讨厌关闭vt-d，所以在Boot Argument中已经添加dart=0，可以不关闭。</p>
+</li>
+<li><p>关闭secure boot：微软整出来的幺蛾子，要求启动的系统有签证才算secure，妥妥的要关掉。</p>
+</li>
+<li><p>关闭Legacy Boot/CSM：为了纯正的UEFI引导，我们要关闭避免干扰，如果你Windows不是UEFI启动，那也可以不关，但是请仔细选择引导（如果UEFI启动进入Clover卡住，请开启CSM，如果单屏正常，双屏启动黑屏，请开启CSM）。</p>
+</li>
+<li><p>关闭fast boot：有些主板Fast Boot会直接忽略USB引导。</p>
+</li>
+<li><p>SATA Mode设置为AHCI，不要IDE，不要RAID</p>
+</li>
+<li><p>关闭TPM模块</p>
+</li>
+<li><p>关闭CFG-Lock，我真想不明白为什么主板厂喜欢Lock，默认Lock就算了，还不给改。</p>
+</li>
+<li><p>关闭IO Serial Port：这个就是所谓的COM口，一般正常人也用不到，有些搞硬件开发和单片机的用的比较多</p>
+</li>
+<li><p>开启XHCI Handoff EHCI Handoff</p>
+<h1 id="启动macOS-Mojave安装U盘"><a href="#启动macOS-Mojave安装U盘" class="headerlink" title="启动macOS Mojave安装U盘"></a>启动macOS Mojave安装U盘</h1><p>开机按F11（因主板而异）进入启动选择菜单，选择Mojave安装U盘，前面都已经配置好了，这里直接回车，等待即可。虽然是这台电脑我根本没装过，但是根据我对常规平台的了解和前面详细的设置，个人觉得一次就能过。</p>
+</li>
+</ul>
+<p>果不其然，正常进入安装界面：</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb311f3cb5c7.jpeg" alt="第一次启动1">第一次启动1</p>
+<p>接下来首先选择语言为简体中文，下一步。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3156bde647.jpeg" alt="第一次启动2">第一次启动2</p>
+<p>在macOS实用工具这里首先选择磁盘工具，进行进一步的配置。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3156730d4e.jpeg" alt="第一次启动3">第一次启动3</p>
+<p>在磁盘工具里我们可以发现除了Windows下的两块SATA硬盘被标注为disk1s1（<a href="https://www.smzdm.com/fenlei/putongyingpan/" target="_blank" rel="noopener">机械硬盘</a>，disk1表示第一块硬盘，因为在插主板SATA口的时候更靠前，s1表示第二个分区，第一个分区为GPT格式默认有的EFI分区）和disk2s4（Windows所在磁盘分区）之外，还有一个SAMSUNG开头的大小为256G的PCI-E磁盘，这就是我们要安装的地方，选择最上方抹掉按钮。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb31570d062a.jpeg" alt="第一次启动4">第一次启动4</p>
+<p>名称为Macintosh HD，macOS默认的名称，格式为APFS+GUID分区表。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3156f2635b.jpeg" alt="第一次启动5">第一次启动5</p>
+<p>格式化成功后关闭磁盘工具</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb31572b0820.jpeg" alt="第一次启动6">第一次启动6</p>
+<p>选择安装macOS。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3156a2f28a.jpeg" alt="第一次启动7">第一次启动7</p>
+<p>选择继续</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb31568bb5a8.jpeg" alt="第一次启动8">第一次启动8</p>
+<p>协议继续下一步</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3156d771dd.jpeg" alt="第一次启动9">第一次启动9</p>
+<p>目标磁盘选择刚才格式化好的Macintosh HD分区</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3161a3066b.jpeg" alt="第一次启动10">第一次启动10</p>
+<p>接下来进入漫长的等待</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb31616b88e8.jpeg" alt="第一次启动11">第一次启动11</p>
+<p>结束后会重启电脑，仍然按F11选择U盘EFI启动（因为这个时候我们只有U盘里有Clover Bootloader可以引导macOS），选择右下角是磁盘形状的macOS图标，并且名称应该为Install from Macintosh HD。这次引导会相对快一些，引导结束一会儿就会重启</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3160f14ebb.jpeg" alt="第二次启动">第二次启动</p>
+<p>第二次重启后，就会开始将复制到Macintosh HD磁盘的系统文件解压展开并进行一系列的自动化设置。结束后仍然是重启。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316185a547.jpeg" alt="第三次启动">第三次启动</p>
+<p>这次重启后进入U盘引导，我们可以发现磁盘变成了四个，第一个就是Windows，第二个是U盘的macOS安装环境，第三个是macOS系统，第四个则是Recovery分区。我们选择第三个回车：</p>
+<p>等待一段时间后我们就进入了macOS的设置界面，区域选择中国</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316109725a.jpeg" alt="第四次启动1">第四次启动1</p>
+<p>键盘选择ABC英文键盘或者简体中文都行。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316139403d.jpeg" alt="第四次启动2">第四次启动2</p>
+<p>由于我实际上加入了WIFI驱动，所以是可以上网的</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb31612117cb.jpeg" alt="第四次启动3">第四次启动3</p>
+<p>如果是没有加入WIFI驱动并且没有网线连接有线网口是，出现的画面应该是这样的，我们需要选择“我的电脑不连接互联网”</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3161bd7cee.jpeg" alt="第四次启动4">第四次启动4</p>
+<p>数据与隐私没啥好说的，继续</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb3161db7684.jpeg" alt="第四次启动5">第四次启动5</p>
+<p>不传输任何信息，继续</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316f7c6ca3.jpeg" alt="第四次启动6">第四次启动6</p>
+<p>在登录Apple ID界面，个人建议无论你是否能上网，都选择稍后设置，因为很多朋友连SMBIOS的三码都没搞懂，贸然登录Apple ID是可能被锁账户的，到时候你哭都来不及。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316f48cf97.jpeg" alt="第四次启动7">第四次启动7</p>
+<p>条款与条件没啥好说的，继续</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316f980404.jpeg" alt="第四次启动8">第四次启动8</p>
+<p>接下来创建本地账户，各位可自行设置</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316f6327e0.jpeg" alt="第四次启动9">第四次启动9</p>
+<p>快捷设置选择自定设置</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316f307d0f.jpeg" alt="第四次启动10">第四次启动10</p>
+<p>我们需要打开定位服务</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316ee08915.jpeg" alt="第四次启动11">第四次启动11</p>
+<p>关闭数据共享</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316f157858.jpeg" alt="第四次启动12">第四次启动12</p>
+<p>都上Mojave了，当然要选择更好看的Dark外观了。</p>
+<p><img src="https://i.loli.net/2019/04/14/5cb316ec70565.jpeg" alt="第四次启动13">第四次启动13</p>
+<p>安装结束，一个完整的macOS系统就装完了。</p>
+<p>至此，我们就获得了一个运行于非Apple硬件上macOS 10.14 Mojave系统，当然它还有很多地方没有完善，关于驱动完善部分，我们将会在接下来的文章中继续介绍，敬请期待。<img src="https://res.smzdm.com/images/emotions/36.png" alt="在Intel电脑上安装macOS 10.14 Mojave"> （最近连折腾电脑带黑果，累坏了）</p>
+<p>千万别把U盘扔了，下次我们进去macOS还得靠它呢。</p>
+<h2 id="有关Windows-macOS双系统时间不同步问题"><a href="#有关Windows-macOS双系统时间不同步问题" class="headerlink" title="有关Windows macOS双系统时间不同步问题"></a>有关Windows macOS双系统时间不同步问题</h2><p>任何安装在计算机上的系统，其时间都是储存于BIOS中，Windows 10会把BIOS的时间当成本地时间，例如，现在东八区晚上八点，那么在BIOS中储存的也是8:00pm，但是Linux和macOS则会把BIOS中的时间当成UTC时间，即零时区的时间，故macOS在读到BIOS中为8:00pm，就会根据你所在的地点，例如中国，加上八个小时，所以如果macOS下没有进行时间同步，你看到的时间将会是4:00am。</p>
+<p>解决方法有两个：</p>
+<ol>
+<li>在Windows下打开cmd，输入 <code>Reg add HKLMSYSTEMCurrentControlSetControlTimeZoneInformation /v RealTimeIsUniversal /t REG_DWORD /d 1</code> ，Windows就会跟Linux和macOS一样，把BIOS时间作为UTC时间，个人比较喜欢这种，这样在装三系统的时候就只要修改一个系统的设置即可。</li>
+<li>在macOS下安装一个叫Localtime-Toggle的补丁，可以让macOS将BIOS时间当做本地时间。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>转载</tag>
+        <tag>黑苹果</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Travis的Hexo自动部署</title>
+    <url>/2019/03/19/%E5%9F%BA%E4%BA%8ETravis%E7%9A%84Hexo%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2.html</url>
+    <content><![CDATA[<p>Hexo迁移博客太麻烦了，我懒~哈哈~此文<a href="https://kchen.cc/2016/11/12/hexo-instructions/#Travis-%E5%92%8C-Hexo" target="_blank" rel="noopener">转载</a>记下防忘记。（PS:最好在mac上处理，windows各种坑… …）</p>
+<a id="more"></a>
+<h2 id="注册Travis"><a href="#注册Travis" class="headerlink" title="注册Travis"></a>注册Travis</h2><p>上<a href="https://travis-ci.org/" target="_blank" rel="noopener">官网</a>会发现有 Sign in with GitHub（使用GitHUb登录）和 Sign Up（注册），其实这俩做的事情都一样，就是用 GitHub 账号登录。登录后界面会显示你的 GitHub Repository，默认全部全部没有勾选，选择你的博客的 Repository 后完成第一步，如图</p>
+<p><img src="https://ws1.sinaimg.cn/large/0069qIgcgy1g188ep1vvkj30qo0dwq4s.jpg" alt></p>
+<p>如果你没有看到自己的项目，请点击右上角的 Sync with Github。</p>
+<h2 id="安装-Travis-CML"><a href="#安装-Travis-CML" class="headerlink" title="安装 Travis CML"></a>安装 Travis CML</h2><p>在进行下面的步骤之前，我们需要先安装 Travis 的 CML，因为后面的部署需要我们加密的自己的 SSH 私钥和 Github、Coding.net 通信。安装过程请看 <a href="https://github.com/travis-ci/travis.rb#installation" target="_blank" rel="noopener">Travis CML Installation</a>：</p>
+<p>首先必须有 <a href="http://www.ruby-lang.org/en/downloads/" target="_blank" rel="noopener">Ruby</a> 1.9.3 以上，检查了版本之后，安装 Travis，检查版本即可：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ruby</span> -v</span><br><span class="line">gem install travis -v <span class="number">1.8</span>.<span class="number">4</span> --<span class="keyword">no</span>-rdoc --<span class="keyword">no</span>-<span class="keyword">ri</span></span><br><span class="line">travis <span class="keyword">version</span></span><br></pre></td></tr></table></figure>
+<p>如上，如果出现 1.8.2 这样的版本信息，则说明 Travis CI Command Line Client 安装成功。之后进行登录，执行：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">travis login</span></span><br></pre></td></tr></table></figure>
+<p>按照提示登录就好了。</p>
+<h2 id="配置-Travis"><a href="#配置-Travis" class="headerlink" title="配置 Travis"></a>配置 Travis</h2><p>在博客根目录下添加 Travis CI 所需要的配置文件 <code>.travis.yml</code>，配置文件内容和一些说明如下：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="attribute">language</span>: node_js</span><br><span class="line"><span class="attribute">node_js</span>: stable</span><br><span class="line"></span><br><span class="line"># assign build branches</span><br><span class="line"><span class="attribute">branches:</span></span><br><span class="line">  only:</span><br><span class="line">    - blog-source</span><br><span class="line"></span><br><span class="line"># cache this directory</span><br><span class="line"><span class="attribute">cache:</span></span><br><span class="line">  directories:</span><br><span class="line">    - node_modules</span><br><span class="line"></span><br><span class="line"># S: Build Lifecycle</span><br><span class="line"><span class="attribute">before_install:</span></span><br><span class="line">  - openssl aes-256-cbc -K $encrypted_a0b7f0848317_key -iv $encrypted_a0b7f0848317_iv -in ./.travis/id_rsa.enc -out ~/.ssh/id_rsa -d</span><br><span class="line">  - chmod 600 ~/.ssh/id_rsa</span><br><span class="line">  - eval $(ssh-agent)</span><br><span class="line">  - ssh-add ~/.ssh/id_rsa</span><br><span class="line">  - cp .travis/ssh_config ~/.ssh/config</span><br><span class="line">  - npm install -g hexo-cli # 安装 hexo</span><br><span class="line">  - git clone -b mod https://github.com/quentin-chen/hexo-theme-even.git themes/even</span><br><span class="line"></span><br><span class="line"><span class="attribute">install:</span></span><br><span class="line">  - npm install # 安装 package.json 中的插件</span><br><span class="line"></span><br><span class="line"><span class="attribute">script:</span></span><br><span class="line">  - hexo generate</span><br><span class="line"></span><br><span class="line"><span class="attribute">after_success:</span></span><br><span class="line">  - git config --global user.name "Quentin_Chen"</span><br><span class="line">  - git config --global user.email "quentin.chen@foxmail.com"</span><br><span class="line">  - sed -i'' "/^ *repo/s~github\.com~$&#123;githubToken&#125;@github.com~" _config.yml</span><br><span class="line">  - hexo deploy</span><br><span class="line"># E: Build LifeCycle</span><br></pre></td></tr></table></figure>
+<p>我逐步来讲解一下每一个配置项的意思。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="attribute">language</span>: node_js</span><br><span class="line"><span class="attribute">node_js</span>: stable</span><br><span class="line"></span><br><span class="line"># assign build branches</span><br><span class="line"><span class="attribute">branches:</span></span><br><span class="line">  only:</span><br><span class="line">    - blog-source</span><br><span class="line"></span><br><span class="line"># cache this directory</span><br><span class="line"><span class="attribute">cache:</span></span><br><span class="line">  directories:</span><br><span class="line">    - node_modules</span><br></pre></td></tr></table></figure>
+<p>这里指定了构建的环境是 Node.js，版本是当前稳定版本。设置的 WebHook 钩子只检测 <code>blog-source</code> 分支的 <code>push</code> 变动。另外我们把 <code>node_modules</code> 文件夹放入缓存，这样可以大大节约每次构建的时间（2min -&gt; 30s）。</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">before_install:</span><br><span class="line">  -<span class="ruby"> openssl aes-<span class="number">256</span>-cbc -K &lt;you_key&gt; -iv &lt;your_iv&gt; -<span class="keyword">in</span> ./.travis/id_rsa.enc -out ~<span class="regexp">/.ssh/id</span>_rsa -d</span></span><br><span class="line"><span class="ruby">  - chmod <span class="number">600</span> ~<span class="regexp">/.ssh/id</span>_rsa</span></span><br><span class="line"><span class="ruby">  - eval $(ssh-agent)</span></span><br><span class="line"><span class="ruby">  - ssh-add ~<span class="regexp">/.ssh/id</span>_rsa</span></span><br><span class="line"><span class="ruby">  - cp .travis/ssh_config ~<span class="regexp">/.ssh/config</span></span></span><br><span class="line"><span class="ruby">  - npm install -g hexo-cli <span class="comment"># 安装 hexo</span></span></span><br><span class="line"><span class="ruby">  - git clone &lt;theme_repo&gt; themes/&lt;theme&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其实每次 Travis 构建的时候，相当于创建了一个干净的虚拟机，除了 Git 等必须的工具，甚至连 Node.js 的环境都是现安装的。所以我们在构建自己的博客之前，需要做一些环境的准备。</p>
+<p>其中 2-6 行是用来配置 SSH 私钥的，这样才能让 Github 和 Coding.net 知道你的身份。这一部分我们后面再说。</p>
+<p>第 7 行是在 Travis 中安装 Hexo 环境，第 8 行是安装主题。</p>
+<blockquote>
+<p>关于主题这里，如果你对自己的主题做了修改（包括配置文件），那么应该把自己修改过的主题托管到 Github，这里填的 <code>&lt;theme_repo&gt;</code> 应是你自己地址。</p>
+</blockquote>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">install:</span><br><span class="line">  - npm install # 安装 package.json 中的插件</span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - hexo generate</span><br><span class="line"></span><br><span class="line">after_success:</span><br><span class="line">  - git<span class="built_in"> config </span>--global user.name <span class="string">"&lt;You Name&gt;"</span></span><br><span class="line">  - git<span class="built_in"> config </span>--global user.email <span class="string">"&lt;email&gt;"</span></span><br><span class="line">  - hexo deploy</span><br></pre></td></tr></table></figure>
+<p>这一部分，就是在 Travis 上模拟部署过程。因为要使用 Git，所以要提前配置好 Committer 的信息。</p>
+<h4 id="生成私钥加密文件"><a href="#生成私钥加密文件" class="headerlink" title="生成私钥加密文件"></a>生成私钥加密文件</h4><blockquote>
+<p>什么是私钥？</p>
+</blockquote>
+<p>私钥就是密钥对（密钥对指一对公钥和私钥），我们在使用 Github 的时候，首先需要在 Github 上配置公钥，这是最基础的。那么，存在我们本地的私钥就是你的个人身份标示，如果你的项目 git 地址配置的是 <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:username/projectname.git（相对的还有 <a href="https://github.com/username/projectname.git%EF%BC%89%EF%BC%8C" target="_blank" rel="noopener">https://github.com/username/projectname.git），</a> 当你在对 Repository 在一些操作（比如 <code>push</code> 等），则需要私钥进行身份验证了（这是自动验证的，如果是使用 https 的配置，则需要提供用户名和密码）。</p>
+<p>我们在 Travis CI 上自动部署代码，就牵扯到了 <code>push</code> 操作，那么就需要提供私钥了。</p>
+<blockquote>
+<p>为什么生成私钥加密文件？</p>
+</blockquote>
+<p>将私钥直接放在项目里，那么人人都能看到。私钥的泄露将会发生一系列的问题，比如有坏人拿你的私钥直接操作你的 git 项目，你能干啥他也能干啥（原理上面讲了），这咋整？我们需要对私钥进行加密。</p>
+<p>Travis 提供了加密文件的支持，什么意思呢？我们可以对文件（这里指私钥）在本地进行加密，然后把加密过后的文件放在项目里，那么别人就无法获取里面的真实内容。然后我们在让 Travis 执行脚本的时候，在读取加密文件之前对文件进行解密（使用的解密密码提前在 Travis 上配置好了），这样就可以达到不将文件内容暴露，并且让 Travis 获取到真实内容的目的了，大概的时序图如下：</p>
+<p><img src="https://ws1.sinaimg.cn/large/0069qIgcgy1g188kvbtcaj30qo0kmdi6.jpg" alt></p>
+<p>开始吧，我们首先把自己的在博客的根目录下建立 <code>.travis</code> 文件夹来存放相关的资料：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">mkdir <span class="string">.travis</span> &amp;&amp; <span class="keyword">cd</span> <span class="string">.travis</span></span><br></pre></td></tr></table></figure>
+<p>把本地的私钥复制一份过来，用 Travis 加密，然后删除（<strong>切记加密完了一定要删除原始密钥！！！</strong>）：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">cp ~<span class="regexp">/.ssh/i</span>d_rsa .</span><br><span class="line">travis encrypt-<span class="keyword">file</span> id_rsa</span><br><span class="line">rm id_rsa</span><br></pre></td></tr></table></figure>
+<p>现在 <code>ls</code> 命令查看一下 <code>.travis</code> 目录应该只有 <code>id_rsa.enc</code> 这一个文件才对。然后我们再在当前目录下新建一个 <code>ssh_config</code> 用来配置 Travis 上的 SSH Client。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">Host *</span><br><span class="line"> <span class="built_in"> User </span>git</span><br><span class="line">  StrictHostKeyChecking <span class="literal">no</span></span><br><span class="line">  IdentityFile ~/.ssh/id_rsa</span><br><span class="line">  IdentitiesOnly <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>现在，我们在 Travis 网站，博客项目的设置（项目右上角）里可以看到两个用于解密私钥的环境变量：</p>
+<p><img src="https://ws1.sinaimg.cn/large/0069qIgcgy1g188ltumjfj30qo0lktc2.jpg" alt></p>
+<p>把这两个环境变量名复制到上面的 <code>.travis.yaml</code> 文件里替换相应部分：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="string">before_install:</span></span><br><span class="line">  - openssl aes<span class="number">-256</span>-cbc -K &lt;you_key&gt; -iv &lt;your_iv&gt; -<span class="keyword">in</span> .<span class="regexp">/.travis/</span>id_rsa.enc -out <span class="regexp">~/.ssh/</span>id_rsa -d</span><br></pre></td></tr></table></figure>
+<p>这样，全部的配置就完成了。</p>
+<h2 id="完成工作流"><a href="#完成工作流" class="headerlink" title="完成工作流"></a>完成工作流</h2><p>在进行工作流之前我们来检查一下我们现在工作目录和所有必须的东西：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── <span class="selector-class">.travis</span>*</span><br><span class="line">│   ├── <span class="selector-tag">id_rsa</span><span class="selector-class">.enc</span></span><br><span class="line">│   └── <span class="selector-tag">ssh_config</span></span><br><span class="line">├── _<span class="selector-tag">config</span><span class="selector-class">.yml</span>*</span><br><span class="line">├── <span class="selector-tag">db</span><span class="selector-class">.json</span>*</span><br><span class="line">├── <span class="selector-tag">node_modules</span></span><br><span class="line">├── <span class="selector-tag">package</span><span class="selector-class">.json</span>*</span><br><span class="line">├── <span class="selector-tag">scaffolds</span>*</span><br><span class="line">├── <span class="selector-tag">source</span>*</span><br><span class="line">│   ├── <span class="selector-tag">CNAME</span>*</span><br><span class="line">│   ├── _<span class="selector-tag">posts</span></span><br><span class="line">│   ├── <span class="selector-tag">about</span></span><br><span class="line">│   ├── <span class="selector-tag">categories</span></span><br><span class="line">│   ├── <span class="selector-tag">img</span></span><br><span class="line">│   ├── <span class="selector-tag">media</span></span><br><span class="line">│   └── <span class="selector-tag">tags</span></span><br><span class="line">└── <span class="selector-tag">themes</span></span><br></pre></td></tr></table></figure>
+<p>我用星号标记的文件和文件夹都是十分重要的，确保 Git 覆盖了这些文件和目录，然后我们把目录 <code>push</code> 到 <code>github/blog-source</code> 仓库分支。Travis WebHook 立马就会检测到 <code>push</code>，然后开始构建了：</p>
+<p><img src="https://ws1.sinaimg.cn/large/0069qIgcgy1g188npaz7tj30qo0f00vd.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Hexo</tag>
+        <tag>Travis</tag>
+        <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac升级Nodejs和Npm</title>
+    <url>/2017/10/28/Mac%E5%8D%87%E7%BA%A7Nodejs%E5%92%8CNpm.html</url>
+    <content><![CDATA[<p>刚黑完苹果，记笔记～<br><a id="more"></a></p>
+<h3 id="1-清除node-js的cache"><a href="#1-清除node-js的cache" class="headerlink" title="1.清除node.js的cache"></a>1.清除node.js的cache</h3><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ sudo <span class="built_in">npm</span> cache clean -f</span><br></pre></td></tr></table></figure>
+<h3 id="2-安装-n-工具"><a href="#2-安装-n-工具" class="headerlink" title="2.安装 n 工具"></a>2.安装 n 工具</h3><p>这个工具是专门用来管理node.js版本</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ sudo npm <span class="keyword">install</span> -g n</span><br></pre></td></tr></table></figure>
+<h3 id="3-安装最新版本的node-js"><a href="#3-安装最新版本的node-js" class="headerlink" title="3.安装最新版本的node.js"></a>3.安装最新版本的node.js</h3><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>sudo n stable</span><br></pre></td></tr></table></figure>
+<h3 id="4-查看node-js版本"><a href="#4-查看node-js版本" class="headerlink" title="4.查看node.js版本"></a>4.查看node.js版本</h3><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">$ <span class="keyword">node</span> <span class="title">-v</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-更新npm到最新版"><a href="#5-更新npm到最新版" class="headerlink" title="5.更新npm到最新版"></a>5.更新npm到最新版</h3><figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ sodu <span class="built_in">npm</span> install <span class="built_in">npm</span>@latest -g</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo添加Gitalk</title>
+    <url>/2017/10/28/Hexo%E6%B7%BB%E5%8A%A0Gitalk.html</url>
+    <content><![CDATA[<p>特殊时段，好多“红杏“类软件都扑街了，而且disqus在国内的加载速度那个惨啊，搞个Gitalk试试喽～<br><a id="more"></a></p>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><p><a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener">Gitalk</a>提供了两种方式：</p>
+<ol>
+<li>直接引入</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">href</span>=<span class="string">"https://unpkg.com/gitalk/dist/gitalk.css"</span>&gt;</span><br><span class="line">  </span><br><span class="line">&lt;script <span class="attribute">src</span>=<span class="string">"https://unpkg.com/gitalk/dist/gitalk.min.js"</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>npm安装</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">npm</span> i --save gitalk</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'gitalk/dist/gitalk.css'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Gitalk <span class="keyword">from</span> <span class="string">'gitalk'</span></span><br></pre></td></tr></table></figure>
+<p>鉴于我懒的程度直接选择第一种了TAT。</p>
+<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h2><h3 id="新建仓库"><a href="#新建仓库" class="headerlink" title="新建仓库"></a>新建仓库</h3><ol>
+<li><p>Github上新建一个仓库，命名随便只要记得住，这里就不赘述了,详细操作查看<a href="https://www.wangyiting.win/2017/05/16/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html">Hexo博客搭建</a>。</p>
+</li>
+<li><p>创建<code>OAuth Application</code>，没有的小伙伴<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">请戳我</a>。 </p>
+</li>
+</ol>
+<p>完成后会生成相应的<code>clientID</code>and<code>clientSecret</code>。</p>
+<h3 id="修改主题文件"><a href="#修改主题文件" class="headerlink" title="修改主题文件"></a>修改主题文件</h3><ol>
+<li>这里以next主题为例，不同的主题目录和模板引擎不同，可以自己修改哈,修改next主题配置文件<code>_config.yml</code>，于<code>dikqus</code>上方，添加字段：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Gitalk</span></span><br><span class="line"><span class="attr">gitalk:</span> </span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span>    <span class="comment">#用来做启用判断可以不用</span></span><br><span class="line"><span class="attr">  clientID:</span> <span class="string">'your clientID'</span>    <span class="comment">#上面生成的往这里怼</span></span><br><span class="line"><span class="attr">  clientSecret:</span> <span class="string">'your clientSecret'</span>   <span class="comment">#同上</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">Blog_comments</span>    <span class="comment">#仓库名称</span></span><br><span class="line"><span class="attr">  owner:</span> <span class="string">erbiduo</span>    <span class="comment">#github用户名</span></span><br><span class="line"><span class="attr">  admin:</span> <span class="string">erbiduo</span></span><br><span class="line"><span class="attr">  distractionFreeMode:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>找到<code>next/layout/_third-party/comments</code>文件夹，新建<code>gitalk.swig</code>文件，代码如下：</li>
+</ol>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> not (theme.duoshuo and theme.duoshuo.shortname) and not theme.duoshuo_shortname %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">  </span></span><br><span class="line"><span class="xml">  </span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.gitalk.enable %&#125;</span><span class="xml">  //_config.yml文件若没有添加enable: true可删除该判断</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    </span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.gitalk.distractionFreeMode  %&#125;</span><span class="xml">      </span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">'stylesheet'</span> <span class="attr">href</span>=<span class="string">"https://yiyeti.cc/usr/themes/veryse/css/gitalk.css"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://yiyeti.cc/usr/themes/veryse/css/gitalk.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">          var gitalk = new Gitalk(&#123;</span></span><br><span class="line"><span class="xml">            clientID:  '</span><span class="template-variable">&#123;&#123;theme.gitalk.clientID&#125;&#125;</span><span class="xml">', </span></span><br><span class="line"><span class="xml">            clientSecret: '</span><span class="template-variable">&#123;&#123;theme.gitalk.clientSecret&#125;&#125;</span><span class="xml">',</span></span><br><span class="line"><span class="xml">            id: window.location.pathname,</span></span><br><span class="line"><span class="xml">            repo: '</span><span class="template-variable">&#123;&#123;theme.gitalk.repo&#125;&#125;</span><span class="xml">', </span></span><br><span class="line"><span class="xml">            owner: '</span><span class="template-variable">&#123;&#123;theme.gitalk.owner&#125;&#125;</span><span class="xml">', </span></span><br><span class="line"><span class="xml">            admin: '</span><span class="template-variable">&#123;&#123;theme.gitalk.admin&#125;&#125;</span><span class="xml">', </span></span><br><span class="line"><span class="xml">            distractionFreeMode: '</span><span class="template-variable">&#123;&#123;theme.gitalk.distractionFreeMode&#125;&#125;</span><span class="xml">',</span></span><br><span class="line"><span class="xml">          &#125;)</span></span><br><span class="line"><span class="xml">          gitalk.render('gitalk-container')</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml">    </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  </span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>同目录下在<code>index.swig</code>文件末尾添加：</li>
+</ol>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">include</span></span> 'gitalk.swig' %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>下步搞起，<code>next/layout/_partials</code>文件夹下，找到<code>comments.swig</code>文件，添加代码：</li>
+</ol>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name">elseif</span> theme.gitalk.distractionFreeMode %&#125;</span><span class="xml">  </span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"gitalk-container"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<p>哦了，不过Gitalk在移动端属于隐形状态。</p>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo自动备份及自启编辑器</title>
+    <url>/2017/10/15/Hexo%E5%8D%9A%E5%AE%A2%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD&amp;%E8%87%AA%E5%90%AF%E7%BC%96%E8%BE%91%E5%99%A8.html</url>
+    <content><![CDATA[<p>偷懒使人明智，Hexo博客自动备份方案~<br><a id="more"></a></p>
+<h4 id="安装shelljs模块"><a href="#安装shelljs模块" class="headerlink" title="安装shelljs模块"></a>安装<code>shelljs</code>模块</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> <span class="comment">--save shelljs</span></span><br></pre></td></tr></table></figure>
+<h4 id="编写自动备份脚本"><a href="#编写自动备份脚本" class="headerlink" title="编写自动备份脚本"></a>编写自动备份脚本</h4><p>模块安装完成之后，在Hexo根目录下<code>scripts</code>文件夹下（<em>没有就新建</em>），新建<code>backup.js</code>文件。<br>写入以下内容：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">require(<span class="string">'shelljs/global'</span>);</span><br><span class="line">try &#123;</span><br><span class="line">	hexo.on(<span class="string">'deployAfter'</span>, <span class="keyword">function</span>() &#123;<span class="regexp">//</span>当deploy完成后执行备份</span><br><span class="line">		run();</span><br><span class="line">	&#125;);</span><br><span class="line">&#125; catch (e) &#123;</span><br><span class="line">	console.log(<span class="string">"产生了一个错误&lt;(￣3￣)&gt; !，错误详情为："</span> + e.toString());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> run() &#123;</span><br><span class="line">	<span class="keyword">if</span> (!which(<span class="string">'git'</span>)) &#123;</span><br><span class="line">		echo(<span class="string">'Sorry, this script requires git'</span>);</span><br><span class="line">		<span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		echo(<span class="string">"======================Auto Backup Begin==========================="</span>);</span><br><span class="line">		cd(<span class="string">'H:\My_project\myBlog'</span>);  <span class="regexp">//</span>此处修改为Hexo根目录路径</span><br><span class="line">		<span class="keyword">if</span> (exec(<span class="string">'git add --all'</span>).code !== <span class="number">0</span>) &#123;</span><br><span class="line">			echo(<span class="string">'Error: Git add failed'</span>);</span><br><span class="line">			<span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (exec(<span class="string">'git commit -am "Form auto backup script\'s commit"'</span>).code !== <span class="number">0</span>) &#123;</span><br><span class="line">			echo(<span class="string">'Error: Git commit failed'</span>);</span><br><span class="line">			<span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (exec(<span class="string">'git push origin master'</span>).code !== <span class="number">0</span>) &#123;  <span class="regexp">//</span>此处修改为自己的远程仓库名和分支名</span><br><span class="line">			echo(<span class="string">'Error: Git push failed'</span>);</span><br><span class="line">			<span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		echo(<span class="string">"==================Auto Backup Complete============================"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>保存后，执行<code>hexo deploy</code>命令，发布的同时就会进行备份了。</p>
+<h4 id="编写自动开启编辑器脚本"><a href="#编写自动开启编辑器脚本" class="headerlink" title="编写自动开启编辑器脚本"></a>编写自动开启编辑器脚本</h4><p>在Hexo根目录下<code>scripts</code>文件夹下，新建<code>sublime.js</code>（<em>可自定义</em>）文件。<br>如果你是windows平台的Hexo用户，则将下列内容写入你的脚本：</p>
+<figure class="highlight scilab"><table><tr><td class="code"><pre><span class="line">var spawn = require(<span class="string">'child_process'</span>).<span class="built_in">exec</span>;</span><br><span class="line"><span class="comment">// Hexo 2.x 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span><span class="params">(path)</span>&#123;</span></span><br><span class="line">  <span class="built_in">exec</span>(<span class="string">'start  "</span>markdown编辑器绝对路径.exe<span class="string">" '</span> + path);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Hexo 3 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span><span class="params">(data)</span>&#123;</span></span><br><span class="line">  <span class="built_in">exec</span>(<span class="string">'start  "</span>markdown编辑器绝对路径.exe<span class="string">" '</span> + data.path);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如果你是Mac平台Hexo用户，则将下列内容写入你的脚本：</p>
+<figure class="highlight scilab"><table><tr><td class="code"><pre><span class="line">var <span class="built_in">exec</span> = require(<span class="string">'child_process'</span>).<span class="built_in">exec</span>;</span><br><span class="line"><span class="comment">// Hexo 2.x 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span><span class="params">(path)</span>&#123;</span></span><br><span class="line">    <span class="built_in">exec</span>(<span class="string">'open -a "</span>markdown编辑器绝对路径.app<span class="string">" '</span> + path);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Hexo 3 用户复制这段</span></span><br><span class="line">hexo.on(<span class="string">'new'</span>, <span class="function"><span class="keyword">function</span><span class="params">(data)</span>&#123;</span></span><br><span class="line">    <span class="built_in">exec</span>(<span class="string">'open -a "</span>markdown编辑器绝对路径.app<span class="string">" '</span> + data.path);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>KO!</p>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git常用命令笔记</title>
+    <url>/2017/10/15/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0.html</url>
+    <content><![CDATA[<p>由于各种原因，好久没有用，都忘的七七八八了，基础教程查看归纳比较累，还是整理了下笔记防止忘记吧！<br><a id="more"></a></p>
+<h2 id="Git设置"><a href="#Git设置" class="headerlink" title="Git设置"></a>Git设置</h2><p>初次安装完成后需要进行<strong>名字</strong>和<strong>Email</strong>地址设置：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ git<span class="built_in"> config </span>--global user.name <span class="string">"Your Name"</span></span><br><span class="line"></span><br><span class="line">$ git<span class="built_in"> config </span>--global user.email <span class="string">"email@example.com"</span></span><br></pre></td></tr></table></figure>
+<h2 id="版本库创建"><a href="#版本库创建" class="headerlink" title="版本库创建"></a>版本库创建</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git init <span class="comment">//把当前目录变成Git可以管理的仓库</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git add &lt;<span class="keyword">file</span>&gt; <span class="comment">//添加文件到暂存区</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git add . <span class="comment">//添加所有新文件和编辑过的文件，但不包括删除的文件</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git add -u <span class="comment">//添加编辑或删除的文件，不包括新添加文件</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git add -A . <span class="comment">//添加所有改变的文件</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git add -A <span class="comment">//添加所有内容</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git commit -m <span class="string">"describe"</span> <span class="comment">//提交文件到仓库</span></span><br></pre></td></tr></table></figure>
+<h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git status <span class="comment">//查看仓库当前状态</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git diff &lt;<span class="keyword">file</span>&gt; <span class="comment">//查看文件修改内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="版本退回"><a href="#版本退回" class="headerlink" title="版本退回"></a>版本退回</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git reset --hard HEAD <span class="comment">//返回当前版本</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git reset --hard HEAD^ <span class="comment">//返回上个版本</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git reset --hard HEAD~<span class="number">100</span> <span class="comment">//返回上100个版本</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git reset --hard commit_id <span class="comment">//返回对应commit_id版本</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git <span class="built-in">log</span> <span class="comment">//查看提交历史，以便确定要回退到哪个版本</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git reflog <span class="comment">//关闭终端后，查看提交历史，以便确定要回退到哪个版本</span></span><br></pre></td></tr></table></figure>
+<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git checkout -- <span class="keyword">file</span> <span class="comment">//撤销工作区的修改</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git reset HEAD <span class="keyword">file</span> <span class="comment">//撤销暂存区的修改,后用上面命令丢弃修改</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git rm &lt;<span class="keyword">file</span>&gt; <span class="comment">//删除一个文件，误删情况下可用 git checkout --file 恢复文件</span></span><br></pre></td></tr></table></figure>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git remote add origin git@server-name:path/repo-name.git <span class="comment">//关联远程库</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git push -u origin master <span class="comment">//第一次推送master分支的所有内容</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git push origin master <span class="comment">//之后推送master分支的最新修改</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git remote <span class="comment">//查看远程库信息，添加 -v 显示详细信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/yourname/</span>repo-name.git <span class="regexp">//</span>克隆远程库</span><br></pre></td></tr></table></figure>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="创建与合并"><a href="#创建与合并" class="headerlink" title="创建与合并"></a>创建与合并</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git branch <span class="comment">//查看分支</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git branch &lt;name&gt; <span class="comment">//创建分支</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git checkout &lt;name&gt; <span class="comment">//切换分支</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git checkout -b &lt;name&gt; <span class="comment">//创建并切换分支</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git merge &lt;name&gt; <span class="comment">//合并某分支到当前分支</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git <span class="built-in">log</span> --graph <span class="comment">//查看分支合并图</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git branch -d &lt;name&gt; <span class="comment">//删除分支</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git branch -D &lt;name&gt; <span class="comment">//强行删除</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git merge --on-ff -m <span class="string">"describe"</span> &lt;name&gt; <span class="comment">//普通模式合并，合并后历史有分支，可以使用 git log 命令查看</span></span><br></pre></td></tr></table></figure>
+<h3 id="工作区存储"><a href="#工作区存储" class="headerlink" title="工作区存储"></a>工作区存储</h3><p>当临时bug或者任务需要切换至其他分支进行工作时，可先存储当前工作现场，切换至其他分支完成工作后，返回分支恢复现场继续工作。</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git stash <span class="comment">//“储藏”当前工作现场</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git stash list <span class="comment">//查看“储藏”的工作现场</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git stash apply <span class="comment">//恢复，但不删除stash内容</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git stash drop <span class="comment">//删除stash内容</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> git stash pop <span class="comment">//恢复同时删除stash内容</span></span><br></pre></td></tr></table></figure>
+<h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">$ git <span class="keyword">tag</span> <span class="title">&lt;tagname</span>&gt; //创建标签</span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">tag</span> <span class="title">&lt;tagname</span>&gt; commit_id //在对应的历史提交上，创建标签</span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">tag</span> <span class="title">-a</span> <span class="tag">&lt;tagname&gt;</span> -m <span class="string">"describe"</span> commit_id //在对应的历史提交上，创建带有说明的标签</span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">tag</span> <span class="title">//查看所有标签</span></span><br><span class="line"><span class="title"></span></span><br><span class="line"><span class="title">$</span> git show <span class="tag">&lt;tagname&gt;</span> //查看标签信息</span><br></pre></td></tr></table></figure>
+<h3 id="操作标签"><a href="#操作标签" class="headerlink" title="操作标签"></a>操作标签</h3><figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">$ git tag -d <span class="params">&lt;tagname&gt;</span> <span class="comment">//删除本地标签</span></span><br><span class="line"></span><br><span class="line">$ git push origin <span class="params">&lt;tagname&gt;</span> <span class="comment">//推送某个标签到远程库</span></span><br><span class="line"></span><br><span class="line">$ git push origin --tags <span class="comment">//推送所有未推送的标签到远程库</span></span><br><span class="line"></span><br><span class="line">$ git push origin :refs<span class="meta-keyword">/tags/</span><span class="params">&lt;tagname&gt;</span> <span class="comment">//删除一个远程标签，前提需要先删除本地标签</span></span><br></pre></td></tr></table></figure>
+<h2 id="自定义Git"><a href="#自定义Git" class="headerlink" title="自定义Git"></a>自定义Git</h2><p>例如：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">$ git config --<span class="keyword">global</span> color.ui <span class="literal">true</span> <span class="comment">//使Git适当地显示不同的颜色</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h3><p>别名配置栗子：</p>
+<figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.st</span> status <span class="comment">//用st替换status</span></span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.co</span> checkout</span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.br</span> branch</span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.last</span> log -<span class="number">1</span> <span class="comment">//最后一次提交log</span></span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.unstage</span> 'reset HEAD' <span class="comment">//把暂存区的修改撤销掉（unstage），重新放回工作区</span></span><br><span class="line"></span><br><span class="line">$ git <span class="keyword">config</span> --<span class="keyword">global</span> <span class="keyword">alias</span><span class="variable">.lg</span> <span class="string">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span> <span class="comment">//格式化显示log</span></span><br></pre></td></tr></table></figure>
+<p>配置Git的时候，加上<code>--global</code>是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。而当前用户的Git配置文件放在用户主目录下的一个隐藏文件<code>.gitconfig</code>中：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">$ cat .gitconfig</span><br><span class="line">[alias]</span><br><span class="line">    <span class="attr">co</span> = checkout</span><br><span class="line">    <span class="attr">ci</span> = commit</span><br><span class="line">    <span class="attr">br</span> = branch</span><br><span class="line">    <span class="attr">st</span> = status</span><br><span class="line">[user]</span><br><span class="line">    <span class="attr">name</span> = Your Name</span><br><span class="line">    <span class="attr">email</span> = your@email.com</span><br></pre></td></tr></table></figure>
+<p>别名就在[alias]后面，要删除别名，直接把对应的行删掉即可。</p>
+<p>每个仓库的Git配置文件都放在<code>.git/config</code>文件中，:</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>cat .git/config </span><br><span class="line">[core]</span><br><span class="line">    repositoryformatversion = <span class="number">0</span></span><br><span class="line">    filemode = <span class="keyword">true</span></span><br><span class="line">    bare = <span class="keyword">false</span></span><br><span class="line">    logallrefupdates = <span class="keyword">true</span></span><br><span class="line">    ignorecase = <span class="keyword">true</span></span><br><span class="line">    precomposeunicode = <span class="keyword">true</span></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">    url = git<span class="variable">@github</span>.<span class="symbol">com:</span>yourname/repo-name.git</span><br><span class="line">    fetch = +refs/heads/*<span class="symbol">:refs/remotes/origin/*</span></span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">    remote = origin</span><br><span class="line">    merge = refs/heads/master</span><br><span class="line">[<span class="keyword">alias</span>]</span><br><span class="line">    last = log -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Parker插件破解</title>
+    <url>/2017/10/15/Parker%E6%8F%92%E4%BB%B6%E7%A0%B4%E8%A7%A3.html</url>
+    <content><![CDATA[<p><img src="http://oohkvf5b9.bkt.clouddn.com/A04%20Parker.jpg?imageMogr2/format/webp" alt="img0"></p>
+<p>Parker是PS的标注插件，可以有效提高UI标注图效率，当然个人认为Markman的操作会更加的便捷快速，看个人习惯了哈。<a id="more"></a></p>
+<p>这里记录下<code>Parker</code>在<code>Windows</code>下<code>Photoshop CC2017</code>的破解过程。</p>
+<h2 id="1、打开注册器"><a href="#1、打开注册器" class="headerlink" title="1、打开注册器"></a>1、打开注册器</h2><p>快捷键<code>win+R</code>，运行<code>regedit</code>命令打开注册表编辑器。</p>
+<p><img src="http://oohkvf5b9.bkt.clouddn.com/A05-image0.png" alt="image0"></p>
+<h2 id="2、新建字符串值"><a href="#2、新建字符串值" class="headerlink" title="2、新建字符串值"></a>2、新建字符串值</h2><p>打开注册器后，找到路径：</p>
+<ul>
+<li>CC 2015.5、CC 2017：<code>HKEY_CURRENT_USER/Software/Adobe/CSXS.7</code></li>
+<li>CC 2015：<code>HKEY_CURRENT_USER/Software/Adobe/CSXS.6</code></li>
+<li>CC、CC 2014：<code>HKEY_CURRENT_USER/Software/Adobe/CSXS.5</code></li>
+</ul>
+<p>添加<code>字符串值</code>项<code>PlayerDebugMode</code>，值为<code>1</code>。</p>
+<p><img src="http://oohkvf5b9.bkt.clouddn.com/A05-image1.gif" alt="image1"></p>
+<p><strong>注：</strong>跳过此步骤CC系列将会提示<em>插件未正确签署</em>报错。</p>
+<h2 id="3、修改试用时间"><a href="#3、修改试用时间" class="headerlink" title="3、修改试用时间"></a>3、修改试用时间</h2><p>Windows下进入目录<code>C:\Users\XXX（用户）\AppData\Roaming\Adobe\CEP\extensions\parker\js</code>，打开<code>parker.js</code>文件，修改试用时间：</p>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">搜索：</span><br><span class="line">if(now - trial_start &gt; <span class="number">30</span>*<span class="number">24</span>*<span class="number">3600</span>*<span class="number">1000</span>) &#123; <span class="comment">// 试用期30天</span></span><br><span class="line"></span><br><span class="line">修改为：</span><br><span class="line">if(now -trial_start &gt; <span class="number">30</span>*<span class="number">24</span>*<span class="number">3600</span>*<span class="number">1000</span>*<span class="number">10240</span>) &#123; <span class="comment">// 试用期30*10240天</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>工具资源</category>
+      </categories>
+      <tags>
+        <tag>PS插件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo常用命令笔记</title>
+    <url>/2017/10/14/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0.html</url>
+    <content><![CDATA[<p>Hexo常用命令学习笔记♥(๑&gt; ₃ &lt;)♥ ~ ~<br><a id="more"></a></p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> npm install hexo -g <span class="comment">//安装  </span></span><br><span class="line"><span class="symbol">$</span> npm update hexo -g <span class="comment">//升级  </span></span><br><span class="line"><span class="symbol">$</span> hexo init <span class="comment">//初始化</span></span><br></pre></td></tr></table></figure>
+<h2 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h2><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ hexo n <span class="string">"我的博客"</span> == hexo <span class="keyword">new</span> <span class="string">"我的博客"</span> <span class="comment">//新建文章</span></span><br><span class="line">$ hexo p == hexo publish</span><br><span class="line">$ hexo g == hexo <span class="keyword">generate</span> <span class="comment">//生成</span></span><br><span class="line">$ hexo s == hexo server <span class="comment">//启动服务预览</span></span><br><span class="line">$ hexo d == hexo deploy <span class="comment">//部署</span></span><br></pre></td></tr></table></figure>
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> hexo server <span class="comment">//Hexo 会监视文件变动并自动更新，您无须重启服务器。</span></span><br><span class="line"><span class="symbol">$</span> hexo server -s <span class="comment">//静态模式</span></span><br><span class="line"><span class="symbol">$</span> hexo server -p <span class="number">5000</span> <span class="comment">//更改端口</span></span><br><span class="line"><span class="symbol">$</span> hexo server -i <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> <span class="comment">//自定义 IP</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> hexo clean <span class="comment">//清除缓存 网页正常情况下可以忽略此条命令</span></span><br><span class="line"><span class="symbol">$</span> hexo g <span class="comment">//生成静态网页</span></span><br><span class="line"><span class="symbol">$</span> hexo d <span class="comment">//开始部署</span></span><br></pre></td></tr></table></figure>
+<h2 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h2><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">generate</span> <span class="comment">//使用 Hexo 生成静态文件快速而且简单</span></span><br><span class="line">$ hexo <span class="keyword">generate</span> --watch <span class="comment">//监视文件变动</span></span><br></pre></td></tr></table></figure>
+<h2 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h2><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line"><span class="comment">//两个命令的作用是相同的</span></span><br><span class="line">$ hexo <span class="keyword">generate</span> --deploy</span><br><span class="line">$ hexo deploy --<span class="keyword">generate</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//简写：</span></span><br><span class="line">$ hexo deploy -g</span><br><span class="line">$ hexo server -g</span><br></pre></td></tr></table></figure>
+<h2 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h2><figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line">$ hexo publish <span class="string">[layout]</span> &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="hexo命令模版"><a href="#hexo命令模版" class="headerlink" title="hexo命令模版"></a>hexo命令模版</h2><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">eg:</span><br><span class="line"></span><br><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"postName"</span> <span class="comment">//新建文章</span></span><br><span class="line">$ hexo <span class="keyword">new</span> page <span class="string">"pageName"</span> <span class="comment">//新建页面</span></span><br><span class="line">$ hexo <span class="keyword">generate</span> <span class="comment">//生成静态页面至public目录</span></span><br><span class="line">$ hexo server <span class="comment">//开启预览访问端口（默认端口4000，'ctrl + c'关闭server）</span></span><br><span class="line">$ hexo deploy <span class="comment">//将.deploy目录部署到GitHub</span></span><br><span class="line"></span><br><span class="line">$ hexo <span class="keyword">new</span> [layout] &lt;title&gt;</span><br><span class="line">$ hexo <span class="keyword">new</span> photo <span class="string">"My Gallery"</span></span><br><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"Hello World"</span> --lang tw</span><br></pre></td></tr></table></figure>
+<h2 id="文章模板"><a href="#文章模板" class="headerlink" title="文章模板"></a>文章模板</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span><span class="bullet">--</span>	</span><br><span class="line"><span class="attr">title:</span> <span class="string">使用Hexo搭建个人博客</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2014</span><span class="bullet">-03</span><span class="bullet">-03</span> <span class="number">19</span><span class="string">:07:43</span></span><br><span class="line"><span class="attr">comments:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">[Hexo]</span></span><br><span class="line"><span class="attr">keywords:</span> <span class="string">Hexo,</span> <span class="string">Blog</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="string">以上是文章摘要</span> <span class="string">&lt;!--more--&gt;</span> <span class="string">以下是余下全文</span></span><br></pre></td></tr></table></figure>
+<h2 id="推送到服务器上"><a href="#推送到服务器上" class="headerlink" title="推送到服务器上"></a>推送到服务器上</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> hexo n <span class="comment">//写文章</span></span><br><span class="line"><span class="symbol">$</span> hexo g <span class="comment">//生成</span></span><br><span class="line"><span class="symbol">$</span> hexo d <span class="comment">//部署 #可与hexo g合并为 hexo d -g</span></span><br></pre></td></tr></table></figure>
+<h2 id="报错相关"><a href="#报错相关" class="headerlink" title="报错相关"></a>报错相关</h2><h3 id="1-找不到git部署"><a href="#1-找不到git部署" class="headerlink" title="1.找不到git部署"></a>1.找不到git部署</h3><figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ERROR </span>Deployer not found: git</span><br></pre></td></tr></table></figure>
+<p>解决方法：<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-xcodebuild"><a href="#2-xcodebuild" class="headerlink" title="2.xcodebuild"></a>2.xcodebuild</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">xcode-<span class="keyword">select</span>: <span class="keyword">error</span>: tool <span class="string">'xcodebuild'</span> requires Xcode, but active developer <span class="keyword">directory</span> <span class="string">'/Library/Developer/CommandLineTools'</span> <span class="keyword">is</span> a command line tools <span class="keyword">instance</span></span><br></pre></td></tr></table></figure>
+<p>解决方法：<br><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> bcrypt</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-RSS不显示"><a href="#3-RSS不显示" class="headerlink" title="3. RSS不显示"></a>3. RSS不显示</h3><p>安装RSS插件</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> hexo-generator-feed <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>开启RSS功能，编辑<code>hexo/_config.yml</code>，添加如下代码：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">rss: /atom.<span class="keyword">xml</span> <span class="title">#rss</span>地址  默认即可</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Sublime--快捷键</title>
+    <url>/2017/05/23/Sublime-%E5%BF%AB%E6%8D%B7%E9%94%AE.html</url>
+    <content><![CDATA[<p>Sublime常用快捷键笔记♥(๑&gt; ₃ &lt;)♥ ~ ~<br><a id="more"></a></p>
+<h3 id="通用（General）"><a href="#通用（General）" class="headerlink" title="通用（General）"></a>通用（General）</h3><figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">↑↓←→：上下左右移动光标，注意不是不是KJHL！</span><br><span class="line">Alt：调出菜单</span><br><span class="line">Ctrl + Shift + P：调出命令板（Command Palette）</span><br><span class="line">Ctrl + `：调出控制台</span><br></pre></td></tr></table></figure>
+<h3 id="编辑（Editing）"><a href="#编辑（Editing）" class="headerlink" title="编辑（Editing）"></a>编辑（Editing）</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">Ctrl + Enter：在当前行下面新增一行然后跳至该行</span><br><span class="line">Ctrl + <span class="built_in">Shift</span> + Enter：在当前行上面增加一行并跳至该行</span><br><span class="line">Ctrl + ←/→：进行逐词移动</span><br><span class="line">Ctrl + <span class="built_in">Shift</span> + ←/→进行逐词选择</span><br><span class="line">Ctrl + ↑/↓移动当前显示区域</span><br><span class="line">Ctrl + <span class="built_in">Shift</span> + ↑/↓移动当前行</span><br></pre></td></tr></table></figure>
+<h3 id="选择（Selecting）"><a href="#选择（Selecting）" class="headerlink" title="选择（Selecting）"></a>选择（Selecting）</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">Ctrl + D：选择当前光标所在的词并高亮该词所有出现的位置，再次Ctrl + D选择该词出现的下一个位置，在多重选词的过程中，使用Ctrl + K进行跳过，使用Ctrl + U进行回退，使用Esc退出多重编辑</span><br><span class="line">Ctrl + <span class="keyword">Shift </span>+ L：将当前选中区域打散</span><br><span class="line">Ctrl + <span class="keyword">J：把当前选中区域合并为一行</span></span><br><span class="line"><span class="keyword">Ctrl </span>+ M：在起始括号和结尾括号间切换</span><br><span class="line">Ctrl + <span class="keyword">Shift </span>+ M：快速选择括号间的内容</span><br><span class="line">Ctrl + <span class="keyword">Shift </span>+ <span class="keyword">J：快速选择同缩进的内容</span></span><br><span class="line"><span class="keyword">Ctrl </span>+ <span class="keyword">Shift </span>+ Space：快速选择当前作用域（<span class="keyword">Scope）的内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="查找-amp-替换（Finding-amp-Replacing）"><a href="#查找-amp-替换（Finding-amp-Replacing）" class="headerlink" title="查找&amp;替换（Finding&amp;Replacing）"></a>查找&amp;替换（Finding&amp;Replacing）</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">F3：跳至当前关键字下一个位置</span><br><span class="line"><span class="built_in">Shift</span> + F3：跳到当前关键字上一个位置</span><br><span class="line">Alt + F3：选中当前关键字出现的所有位置</span><br><span class="line">Ctrl + F/H：进行标准查找/替换，之后：</span><br><span class="line">Alt + C：切换大小写敏感（Case-sensitive）模式</span><br><span class="line">Alt + W：切换整字匹配（Whole matching）模式</span><br><span class="line">Alt + R：切换正则匹配（Regex matching）模式</span><br><span class="line">Ctrl + <span class="built_in">Shift</span> + H：替换当前关键字</span><br><span class="line">Ctrl + Alt + Enter：替换所有关键字匹配</span><br><span class="line">Ctrl + <span class="built_in">Shift</span> + F：多文件搜索&amp;替换</span><br></pre></td></tr></table></figure>
+<h3 id="跳转（Jumping）"><a href="#跳转（Jumping）" class="headerlink" title="跳转（Jumping）"></a>跳转（Jumping）</h3><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">Ctrl + P：跳转到指定文件，输入文件名后可以：</span><br><span class="line">@ 符号跳转：输入@symbol跳转到symbol符号所在的位置</span><br><span class="line"># 关键字跳转：输入#keyword跳转到keyword所在的位置</span><br><span class="line"><span class="meta">: 行号跳转：输入:12跳转到文件的第12行。</span></span><br><span class="line"><span class="meta">Ctrl</span> + R：跳转到指定符号</span><br><span class="line">Ctrl + G：跳转到指定行号</span><br></pre></td></tr></table></figure>
+<h3 id="窗口（Window）"><a href="#窗口（Window）" class="headerlink" title="窗口（Window）"></a>窗口（Window）</h3><figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">Ctrl + Shift + <span class="built_in">N</span>：创建一个新窗口</span><br><span class="line">Ctrl + <span class="built_in">N</span>：在当前窗口创建一个新标签</span><br><span class="line">Ctrl + W：关闭当前标签，当窗口内没有标签时会关闭该窗口</span><br><span class="line">Ctrl + Shift + <span class="built_in">T</span>：恢复刚刚关闭的标签</span><br></pre></td></tr></table></figure>
+<h3 id="屏幕（Screen）"><a href="#屏幕（Screen）" class="headerlink" title="屏幕（Screen）"></a>屏幕（Screen）</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">F11：切换普通全屏</span><br><span class="line"><span class="built_in">Shift</span> + F11：切换无干扰全屏</span><br><span class="line">Alt + <span class="built_in">Shift</span> + <span class="number">2</span>：进行左右分屏</span><br><span class="line">Alt + <span class="built_in">Shift</span> + <span class="number">8</span>：进行上下分屏</span><br><span class="line">Alt + <span class="built_in">Shift</span> + <span class="number">5</span>：进行上下左右分屏</span><br><span class="line">分屏之后，使用Ctrl + 数字键跳转到指定屏，使用Ctrl + <span class="built_in">Shift</span> + 数字键将当前屏移动到指定屏</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>笔记</tag>
+        <tag>Sublime</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo博客搭建</title>
+    <url>/2017/05/16/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA.html</url>
+    <content><![CDATA[<p>搭个博客给记录下生活琐事、笔记以及传说中的奋斗史。<br><a id="more"></a></p>
+<p>这里记录下搭建的过程（Windows）以及一些踩过的坑，不堪回首的血泪史啊~  (ŎдŎ；) 。</p>
+<h2 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1.安装Git"></a>1.安装Git</h2><p>点击<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Git-Downloads</a>下载，安装过程一路next，搭建过程中只是为了使用<strong>Git指令</strong>比较简单，Git作为目前最受欢迎的开源分布式版本控制系统，有兴趣的童鞋可以瞅瞅更具体的教程哈，附上链接<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="noopener">廖雪峰Git教程</a>and<a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Gitbook</a>。</p>
+<h2 id="2-安装nodejs"><a href="#2-安装nodejs" class="headerlink" title="2.安装nodejs"></a>2.安装nodejs</h2><p>在<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs官网</a>上，下载安装包，安装路径自定义，其他一路next。Windows上安装nodejs后自带npm（node包管理和分发工具），Linux上需独立安装npm。</p>
+<p><br><br>安装完成后使用以下命令查看nodejs和npm版本：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">$ <span class="keyword">node</span> <span class="title">-v</span></span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure>
+<h3 id="这里贴上npm常用命令："><a href="#这里贴上npm常用命令：" class="headerlink" title="这里贴上npm常用命令："></a>这里贴上npm常用命令：<br></h3><figure class="highlight q"><table><tr><td class="code"><pre><span class="line">$ npm install &lt;name&gt; [-g] [--<span class="built_in">save</span>-<span class="built_in">dev</span>] <span class="comment">// 安装插件</span></span><br><span class="line"></span><br><span class="line">$ npm uninstall &lt;name&gt; [-g] [--<span class="built_in">save</span>-<span class="built_in">dev</span>] <span class="comment">// 卸载插件</span></span><br><span class="line"></span><br><span class="line">$ npm <span class="keyword">update</span> &lt;name&gt; [-g] [--<span class="built_in">save</span>-<span class="built_in">dev</span>] <span class="comment">// 更新插件</span></span><br><span class="line"></span><br><span class="line">$ npm <span class="keyword">update</span> [--<span class="built_in">save</span>-<span class="built_in">dev</span>] <span class="comment">// 更新全部插件</span></span><br><span class="line"></span><br><span class="line">$ npm help <span class="comment">// 查看npm帮助</span></span><br><span class="line"></span><br><span class="line">$ npm list <span class="comment">// 查看当前目录已安装插件</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>name : node插件名称；</li>
+<li>-g : 全局安装，并写入系统环境变量；</li>
+<li>–save : 保存配置信息至package.json；</li>
+<li>-div : 保存至package.json的devDependencies节点；</li>
+</ul>
+<h3 id="npm更换淘宝镜像源"><a href="#npm更换淘宝镜像源" class="headerlink" title="npm更换淘宝镜像源"></a>npm更换淘宝镜像源</h3><p>这里有四种方法，window上推荐使用1和3，方法4需要看网络有时候会加载失败。</p>
+<ol>
+<li><p>通过config命令</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> npm config <span class="keyword">set</span> registry <span class="comment">http:</span>//<span class="comment">registry.npm.taobao.org</span> </span><br><span class="line">$ npm <span class="comment">info underscore</span> //如果上面配置正确这个命令会有字符串<span class="comment">response</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命令行指定</p>
+<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line">$ npm --<span class="keyword">registry</span> https://<span class="keyword">registry</span>.npm.taobao.org <span class="keyword">info</span> underscore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑 ~/.npmrc 文件增加</p>
+<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> registry = https:<span class="comment">//registry.npm.taobao.org</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装cnpm</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">$ npm install cnpm -g <span class="params">--registry=https</span>:<span class="string">//registry.npm.taobao.org</span> <span class="string">//</span>安装完后最好查看其版本号cnpm -v或关闭命令提示符重新打开，安装完直接使用有可能会出现错误</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上命令都是在<strong>命令行</strong>或<strong>Git Bash终端窗口</strong>上执行。</p>
+<h2 id="3-安装及配置Hexo"><a href="#3-安装及配置Hexo" class="headerlink" title="3. 安装及配置Hexo"></a>3. 安装及配置Hexo</h2><p>英文较好的可以查看<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo官网</a>的<a href="https://hexo.io/docs/" target="_blank" rel="noopener">官方文档</a>。</p>
+<h3 id="下载安装Hexo"><a href="#下载安装Hexo" class="headerlink" title="下载安装Hexo"></a>下载安装Hexo</h3><p>这里使用Windows的童鞋需要注意下官网安装Hexo的指令是<code>npm install hexo-cli -g</code>，但是安装完成后有些童鞋会发现使用hexo命令提示不是内部命令，这里推荐使用以下指令进行安装（不要问我为什么我也不知道试了n多回才发现的 o(╥﹏╥)o）：<br><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> -g hexo</span><br></pre></td></tr></table></figure></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> hexo init yourblog <span class="comment">// 建立并初始化博客文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> cd yourblog <span class="comment">// 进入博客文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> npm install <span class="comment">// 安装依赖包</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> hexo generate <span class="comment">//或者hexo g ，生成静态文件会在当前目录下生成一个新的叫做public的文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> hexo server <span class="comment">//或者hexo s ，启动本地web服务，可以在http://localhost:4000/ 查看</span></span><br></pre></td></tr></table></figure>
+<p>初始化完成后目录为（PS：不一定一模一样哈）：<br><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml <span class="comment">//网站的 配置 信息，可以在此配置大部分的参数。</span></span><br><span class="line">├── <span class="keyword">package</span>.json</span><br><span class="line">├── <span class="keyword">public</span></span><br><span class="line">├── scaffolds     <span class="comment">//模版 文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</span></span><br><span class="line">├── <span class="keyword">source</span>     <span class="comment">//资源文件夹是存放用户资源的地方。</span></span><br><span class="line">|   ├── _drafts <span class="comment">//草稿</span></span><br><span class="line">|   └── _posts <span class="comment">//文章</span></span><br><span class="line">└── themes     <span class="comment">//主题 文件夹。Hexo 会根据主题来生成静态页面。</span></span><br></pre></td></tr></table></figure></p>
+<p>那么现在打开浏览器输入<code>localhost:4000</code>看看博客界面吧。</p>
+<h3 id="Hexo常用命令"><a href="#Hexo常用命令" class="headerlink" title="Hexo常用命令"></a>Hexo常用命令</h3><figure class="highlight verilog"><table><tr><td class="code"><pre><span class="line">$ hexo g == hexo <span class="keyword">generate</span> <span class="comment">//生成静态文件</span></span><br><span class="line"></span><br><span class="line">$ hexo s == hexo server <span class="comment">//启动本地Web服务，用于预览</span></span><br><span class="line"></span><br><span class="line">$ hexo d == hexo deploy <span class="comment">//前提需要修改站点配置文件部署部分详情可查看配置博客，部署到远端平台（GitHub/coding等平台）</span></span><br><span class="line"></span><br><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"postName"</span>  <span class="comment">//新建文章</span></span><br><span class="line"></span><br><span class="line">$ hexo <span class="keyword">new</span> page <span class="string">"pageName"</span>  <span class="comment">//新建页面</span></span><br></pre></td></tr></table></figure>
+<p>注意：每次预览<code>hexo s</code>或部署<code>hexo d</code>前需要使用<code>hexo g</code>渲染生成静态文件后再执行。</p>
+<h3 id="配置博客"><a href="#配置博客" class="headerlink" title="配置博客"></a>配置博客</h3><p>在博客文件夹根目录下找到<strong>站点配置文件</strong><code>_config.yml</code>,以下是我的配置文件内容及配置说明：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration Hexo配置文件</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网站信息</span></span><br><span class="line"><span class="comment">#标题</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">那年四月</span></span><br><span class="line"><span class="comment">#副标题</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">小桥</span> <span class="string">·</span> <span class="string">流水</span> <span class="string">·</span> <span class="string">人家</span></span><br><span class="line"><span class="comment">#网站描述</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">吃饭睡觉打豆豆(づ｡◕‿‿◕｡)づ</span></span><br><span class="line"><span class="comment">#作者昵称</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">吃兔子的小萝卜</span></span><br><span class="line"><span class="comment">#网站语言，设置简体汉语</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#时区，默认电脑时区</span></span><br><span class="line"><span class="comment">#timezone: </span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网址设置</span></span><br><span class="line"><span class="comment">#如果网站是放在子目录中，将url设置成'http://yoursite.com/child'，将root设置成'/child/'</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></span><br><span class="line"><span class="comment">#网址</span></span><br><span class="line"><span class="attr">url:</span> <span class="attr">http://wangyiting.win</span></span><br><span class="line"><span class="comment">#网站根目录。如果网站是放在子目录中，将root设置成'子目录名'</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"><span class="comment">#文章链接地址格式 。即文章存放的目录。</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 目录设置</span></span><br><span class="line"><span class="comment">#资源文件夹，放在里面的文件会上传到github中</span></span><br><span class="line"><span class="attr">source_dir:</span> <span class="string">source</span></span><br><span class="line"><span class="comment">#公共文件夹，存放生成的静态文件</span></span><br><span class="line"><span class="attr">public_dir:</span> <span class="string">public</span></span><br><span class="line"><span class="comment">#标签文件夹，默认是tags。实际存放在source/tags中。</span></span><br><span class="line"><span class="attr">tag_dir:</span> <span class="string">tags</span></span><br><span class="line"><span class="comment">#rss_dir: rss</span></span><br><span class="line"><span class="comment">#档案文件夹，默认是archives。</span></span><br><span class="line"><span class="attr">archive_dir:</span> <span class="string">archives</span></span><br><span class="line"><span class="comment">#分类文件夹，默认是categories。实际存放在source/categories中。</span></span><br><span class="line"><span class="attr">category_dir:</span> <span class="string">categories</span></span><br><span class="line"><span class="comment">#代码文件夹，默认是downloads/code</span></span><br><span class="line"><span class="attr">code_dir:</span> <span class="string">downloads/code</span></span><br><span class="line"><span class="comment">#国际化文件夹，默认跟language相同</span></span><br><span class="line"><span class="attr">i18n_dir:</span> <span class="string">:lang</span></span><br><span class="line"><span class="comment">#不需要渲染的文件夹或文件夹,放在[]中</span></span><br><span class="line"><span class="comment"># 例如百度和google的站长验证文件，不能渲染，否则会改变内容，不能验证过</span></span><br><span class="line"><span class="attr">skip_render:</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 写作文章选项</span></span><br><span class="line"><span class="comment"># 新建博文（帖子）的默认名称</span></span><br><span class="line"><span class="comment"># File name of new posts</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span> </span><br><span class="line"><span class="comment">#默认布局模板是post，而不是draft和page</span></span><br><span class="line"><span class="attr">default_layout:</span> <span class="string">post</span></span><br><span class="line"><span class="comment">#是否将标题转换成标题形式（首字母大写）</span></span><br><span class="line"><span class="attr">titlecase:</span> <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line"><span class="comment">#在新标签页面中打开网页</span></span><br><span class="line"><span class="attr">external_link:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">0</span></span><br><span class="line"><span class="comment">#是否渲染草稿</span></span><br><span class="line"><span class="attr">render_drafts:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#启动 Asset 文件夹</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#把链接改为与根目录的相对位址</span></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span></span><br><span class="line"><span class="comment">#显示未来的文章</span></span><br><span class="line"><span class="attr">future:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">#代码块的设置</span></span><br><span class="line"><span class="attr">highlight:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment"># 使用代码高亮</span></span><br><span class="line"><span class="attr">  line_number:</span> <span class="literal">true</span> <span class="comment"># 显示行号</span></span><br><span class="line"><span class="attr">  auto_detect:</span> <span class="literal">true</span>  <span class="comment"># 自动检测语言</span></span><br><span class="line"><span class="attr">  tab_replace:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类和标签</span></span><br><span class="line"><span class="comment"># 默认分类</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">uncategorized</span></span><br><span class="line"><span class="comment">#分类别名</span></span><br><span class="line"><span class="attr">category_map:</span></span><br><span class="line"><span class="comment">#标签别名</span></span><br><span class="line"><span class="attr">tag_map:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日期和时间格式</span></span><br><span class="line"><span class="comment">#Hexo 使用 Moment.js 来解析和显示时间。</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format:</span> <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format:</span> <span class="attr">HH:mm:ss</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分页配置</span></span><br><span class="line"><span class="comment">#每页显示的文章量 </span></span><br><span class="line"><span class="attr">per_page:</span> <span class="number">8</span></span><br><span class="line"><span class="comment">#分页路径，在public中可以看到</span></span><br><span class="line"><span class="comment">#pagination_dir: page</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions 拓展插件配置</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="attr">plugins:</span> </span><br><span class="line"><span class="attr">baidusitemap:</span> </span><br><span class="line"><span class="attr">  path:</span> <span class="string">baidusitemap.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#search 站内搜索</span></span><br><span class="line"><span class="comment"># 需要安装插件：</span></span><br><span class="line"><span class="comment"># npm install hexo-generator-search --save</span></span><br><span class="line"><span class="comment"># npm install hexo-generator-searchdb --save</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">search.xml</span></span><br><span class="line"><span class="attr">  field:</span> <span class="string">post</span></span><br><span class="line"><span class="attr">  format:</span> <span class="string">html</span></span><br><span class="line"><span class="attr">  limit:</span> <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主题配置</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="comment">#theme: false #禁用主题</span></span><br><span class="line"><span class="comment">#theme: landscape</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment  部署配置</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span></span><br><span class="line">    <span class="comment"># 部署到github，取消注释，可同时部署</span></span><br><span class="line">    <span class="comment"># github: git@github.com:erbiduo/wyt.github.io.git,master</span></span><br><span class="line">    <span class="comment"># 部署到coding.net</span></span><br><span class="line"><span class="attr">    coding:</span> <span class="string">git@git.coding.net:erduo/blog.git,master</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：其中<code>theme</code>主题配置默认为<code>landscape</code>，本站为<code>next</code>。</p>
+<h2 id="4-next主题下载-amp-配置"><a href="#4-next主题下载-amp-配置" class="headerlink" title="4. next主题下载&amp;配置"></a>4. next主题下载&amp;配置</h2><p>满血复活 go on !!! ┗( ▔, ▔ )┛ 很好下一步美化下博客，想要查看详细的修改配置，可以参考<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方文档</a>，是中文版哦。<br></p>
+<h3 id="下载next主题"><a href="#下载next主题" class="headerlink" title="下载next主题"></a>下载next主题</h3><p>定位到Hexo站点目录（如e:hexo\yourblog\）下，使用git指令下载主题文件：<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h3><p>在博客文件夹根目录下找到<strong>站点配置文件</strong><code>_config.yml</code>，修改如下：<br><figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># 主题配置</span></span><br><span class="line"><span class="meta">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="meta">#theme: false #禁用主题</span></span><br><span class="line"><span class="meta">#theme: landscape</span></span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><p>在next主题文件夹<code>yourblog\themes\next</code>下，找到<strong>主题配置文件</strong><code>_config.yml</code>，进行配置信息修改，以下为主题修改部分内容：</p>
+<ol>
+<li><p>主题样式选择<br>next有三种主题可供选择，修改next主题下<code>_config.yml</code>的<code>scheme</code>字段：</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># Schemes 样式选择</span></span><br><span class="line"><span class="meta">#scheme: Muse</span></span><br><span class="line"><span class="meta">#scheme: Mist</span></span><br><span class="line">scheme: Pisces</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>菜单设置<br>修改next主题下<code>_config.yml</code>的<code>menu</code>字段:</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">menu:</span> <span class="meta">#菜单设置</span></span><br><span class="line"><span class="symbol">  home:</span> /  <span class="meta">#主页</span></span><br><span class="line"><span class="symbol">  categories:</span> /categories  <span class="meta">#分类页</span></span><br><span class="line"><span class="symbol">  archives:</span> /archives  <span class="meta">#归档页</span></span><br><span class="line"><span class="symbol">  tags:</span> /tags  <span class="meta">#标签页</span></span><br><span class="line"><span class="symbol">  about:</span> /about  <span class="meta">#关于页面</span></span><br><span class="line">  <span class="meta">#sitemap: /sitemap.xml #站点地图</span></span><br><span class="line">  <span class="meta">#commonweal: /404.html  #404页面</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>头像设置<br>修改next主题下<code>_config.yml</code>的<code>avatar</code>字段:</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="string">avatar:</span> <span class="string">http:</span><span class="comment">//img.hb.aicdn.com/4bb35e890d55e0ad33d33f01af51ee498440c11a6c3d7-3qnhjf_fw658</span></span><br></pre></td></tr></table></figure>
+<p> 链接是头像图片链接可以自己修改。</p>
+</li>
+<li><p>文章代码主题设置<br>Next主题总共支持5种主题，默认主题是白色的<code>normal</code>。可以通过修改next主题下的<code>_config.yml</code>的<code>highlight</code>字段，来设置代码主题。</p>
+<figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">highlight_theme:</span> normal</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>社交链接设置<br>修改next主题下<code>_config.yml</code>的<code>social</code>字段:</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">social</span>:</span><br><span class="line">  #<span class="attribute">LinkLabel</span>: Link</span><br><span class="line">  #<span class="attribute">GitHub</span>: </span><br><span class="line">  #<span class="attribute">Twitter</span>: </span><br><span class="line">  <span class="attribute">Weibo</span>:  <span class="attribute">http</span>:<span class="comment">//weibo.com/</span></span><br></pre></td></tr></table></figure>
+<p> 链接同上自行修改。</p>
+</li>
+<li><p>首页文章摘要设置<br>next默认首页文章显示所有内容，想要只显示摘要，修改next主题下<code>_config.yml</code>的<code>auto_excerpt</code>字段:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">auto_excerpt:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment">#启用</span></span><br><span class="line"><span class="attr">  length:</span> <span class="number">150</span> <span class="comment">#显示摘要字数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加菜单页面<br>做完上一步会发现在首页点击菜单上的分类、归档等页面都会报错，提示没有该页面，所以需要添加各个菜单页面，定位到站点文件夹，在终端中执行新建页面指令：</p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="type">page</span> tags <span class="comment">//添加标签页面</span></span><br><span class="line"></span><br><span class="line">$ hexo <span class="keyword">new</span> <span class="type">page</span> categories <span class="comment">//添加分类页面</span></span><br><span class="line"></span><br><span class="line">$ hexo <span class="keyword">new</span> <span class="type">page</span> about  <span class="comment">//添加关于我页面</span></span><br></pre></td></tr></table></figure>
+<p> 输入命令后会在<code>yourblog/source</code>下生成对应文件夹，可以进入对应文件夹修改<code>.md</code>文件</p>
+</li>
+</ol>
+<h2 id="5-添加站内搜索"><a href="#5-添加站内搜索" class="headerlink" title="5. 添加站内搜索"></a>5. 添加站内搜索</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>安装<code>hexo-generator-search</code>和<code>hexo-generator-searchdb</code>,在站点的根目录下执行命令：<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ npm <span class="keyword">install</span> hexo-generator-<span class="keyword">search</span> <span class="comment">--save</span></span><br><span class="line"></span><br><span class="line">$ npm <span class="keyword">install</span> hexo-generator-searchdb <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="启用搜索"><a href="#启用搜索" class="headerlink" title="启用搜索"></a>启用搜索</h3><p>编辑根目录下<strong>站点配置文件</strong><code>_config.yml</code>，新增以下内容到任意位置：<br><figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">search:</span></span><br><span class="line"><span class="symbol">  path:</span> search.xml</span><br><span class="line"><span class="symbol">  field:</span> post</span><br><span class="line"><span class="symbol">  format:</span> html</span><br><span class="line"><span class="symbol">  limit:</span> <span class="number">10000</span></span><br></pre></td></tr></table></figure></p>
+<p>下一步修改next主题下<code>_config.yml</code>的<code>local_search</code>字段:<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Local search</span></span><br><span class="line"><span class="attr">local_search:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="6-添加文章阅读数统计"><a href="#6-添加文章阅读数统计" class="headerlink" title="6. 添加文章阅读数统计"></a>6. 添加文章阅读数统计</h2><p>阅读数统计采用<a href="https://leancloud.cn/" target="_blank" rel="noopener">Leancloud</a>，没有账号的童鞋可以注册一个。</p>
+<h3 id="新建应用"><a href="#新建应用" class="headerlink" title="新建应用"></a>新建应用</h3><p>填写应用名后点击创建。</p>
+<h3 id="创建Class"><a href="#创建Class" class="headerlink" title="创建Class"></a>创建Class</h3><p>在左侧菜单存储中创建一个Class命名为<code>Counter</code>。</p>
+<h3 id="Key配置"><a href="#Key配置" class="headerlink" title="Key配置"></a>Key配置</h3><p>将设置中应用Key复制。</p>
+<p>对应修改next主题下<code>_config.yml</code>的<code>leancloud_visitors</code>字段:<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">leancloud_visitors:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  app_id:</span>   <span class="comment">#&lt;app_id&gt;</span></span><br><span class="line"><span class="attr">  app_key:</span>   <span class="comment">#&lt;app_key&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="添加-lean-analytics-swig-文件"><a href="#添加-lean-analytics-swig-文件" class="headerlink" title="添加 lean-analytics.swig 文件"></a>添加 lean-analytics.swig 文件</h3><p>在主题的<code>layout\_scripts</code>路径下，新建一个 lean-analytics.swig 文件，并向里面添加以下内容：<br><figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- custom analytics part create by xiamo --&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">AV.initialize("</span></span><span class="template-variable">&#123;&#123;theme.leancloud_visitors.app_id&#125;&#125;</span><span class="xml"><span class="actionscript"><span class="string">", "</span></span></span><span class="template-variable">&#123;&#123;theme.leancloud_visitors.app_key&#125;&#125;</span><span class="xml"><span class="undefined">");</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span></span><br><span class="line"><span class="xml">function showTime(Counter) &#123;</span></span><br><span class="line"><span class="xml">	var query = new AV.Query(Counter);</span></span><br><span class="line"><span class="xml">	$(".leancloud_visitors").each(function() &#123;</span></span><br><span class="line"><span class="xml">		var url = $(this).attr("id").trim();</span></span><br><span class="line"><span class="xml">		query.equalTo("url", url);</span></span><br><span class="line"><span class="xml">		query.find(&#123;</span></span><br><span class="line"><span class="xml">			success: function(results) &#123;</span></span><br><span class="line"><span class="xml">				if (results.length == 0) &#123;</span></span><br><span class="line"><span class="xml">					var content = $(document.getElementById(url)).text() + ': 0';</span></span><br><span class="line"><span class="xml">					$(document.getElementById(url)).text(content);</span></span><br><span class="line"><span class="xml">					return;</span></span><br><span class="line"><span class="xml">				&#125;</span></span><br><span class="line"><span class="xml">				for (var i = 0; i <span class="tag">&lt; <span class="attr">results.length</span>; <span class="attr">i</span>++) &#123;</span></span></span><br><span class="line"><span class="xml">					var object = results[i];</span></span><br><span class="line"><span class="xml">					var content = $(document.getElementById(url)).text() + ': ' + object.get('time');</span></span><br><span class="line"><span class="xml">					$(document.getElementById(url)).text(content);</span></span><br><span class="line"><span class="xml">				&#125;</span></span><br><span class="line"><span class="xml">			&#125;,</span></span><br><span class="line"><span class="xml">			error: function(object, error) &#123;</span></span><br><span class="line"><span class="xml">				console.log("Error: " + error.code + " " + error.message);</span></span><br><span class="line"><span class="xml">			&#125;</span></span><br><span class="line"><span class="xml">		&#125;);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">	&#125;);</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">function addCount(Counter) &#123;</span></span><br><span class="line"><span class="xml">	var Counter = AV.Object.extend("Counter");</span></span><br><span class="line"><span class="xml">	url = $(".leancloud_visitors").attr('id').trim();</span></span><br><span class="line"><span class="xml">	title = $(".leancloud_visitors").attr('data-flag-title').trim();</span></span><br><span class="line"><span class="xml">	var query = new AV.Query(Counter);</span></span><br><span class="line"><span class="xml">	query.equalTo("url", url);</span></span><br><span class="line"><span class="xml">	query.find(&#123;</span></span><br><span class="line"><span class="xml">		success: function(results) &#123;</span></span><br><span class="line"><span class="xml">			if (results.length &gt; 0) &#123;</span></span><br><span class="line"><span class="xml">				var counter = results[0];</span></span><br><span class="line"><span class="xml">				counter.fetchWhenSave(true);</span></span><br><span class="line"><span class="xml">				counter.increment("time");</span></span><br><span class="line"><span class="xml">				counter.save(null, &#123;</span></span><br><span class="line"><span class="xml">					success: function(counter) &#123;</span></span><br><span class="line"><span class="xml">						var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');</span></span><br><span class="line"><span class="xml">						$(document.getElementById(url)).text(content);</span></span><br><span class="line"><span class="xml">					&#125;,</span></span><br><span class="line"><span class="xml">					error: function(counter, error) &#123;</span></span><br><span class="line"><span class="xml">						console.log('Failed to save Visitor num, with error message: ' + error.message);</span></span><br><span class="line"><span class="xml">					&#125;</span></span><br><span class="line"><span class="xml">				&#125;);</span></span><br><span class="line"><span class="xml">			&#125; else &#123;</span></span><br><span class="line"><span class="xml">				var newcounter = new Counter();</span></span><br><span class="line"><span class="xml">				newcounter.set("title", title);</span></span><br><span class="line"><span class="xml">				newcounter.set("url", url);</span></span><br><span class="line"><span class="xml">				newcounter.set("time", 1);</span></span><br><span class="line"><span class="xml">				newcounter.save(null, &#123;</span></span><br><span class="line"><span class="xml">					success: function(newcounter) &#123;</span></span><br><span class="line"><span class="xml">					    console.log("newcounter.get('time')="+newcounter.get('time'));</span></span><br><span class="line"><span class="xml">						var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');</span></span><br><span class="line"><span class="xml">						$(document.getElementById(url)).text(content);</span></span><br><span class="line"><span class="xml">					&#125;,</span></span><br><span class="line"><span class="xml">					error: function(newcounter, error) &#123;</span></span><br><span class="line"><span class="xml">						console.log('Failed to create');</span></span><br><span class="line"><span class="xml">					&#125;</span></span><br><span class="line"><span class="xml">				&#125;);</span></span><br><span class="line"><span class="xml">			&#125;</span></span><br><span class="line"><span class="xml">		&#125;,</span></span><br><span class="line"><span class="xml">		error: function(error) &#123;</span></span><br><span class="line"><span class="xml">			console.log('Error:' + error.code + " " + error.message);</span></span><br><span class="line"><span class="xml">		&#125;</span></span><br><span class="line"><span class="xml">	&#125;);</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">$(function() &#123;</span></span><br><span class="line"><span class="xml">	var Counter = AV.Object.extend("Counter");</span></span><br><span class="line"><span class="xml">	if ($('.leancloud_visitors').length == 1) &#123;</span></span><br><span class="line"><span class="xml">		addCount(Counter);</span></span><br><span class="line"><span class="xml">	&#125; else if ($('.post-title-link').length &gt; 1) &#123;</span></span><br><span class="line"><span class="xml">		showTime(Counter);</span></span><br><span class="line"><span class="xml">	&#125;</span></span><br><span class="line"><span class="xml">&#125;); </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>完成后开启预览见证一下奇迹吧。</p>
+<h2 id="7-部署上线"><a href="#7-部署上线" class="headerlink" title="7.部署上线"></a>7.部署上线</h2><p>博客可以同时部署在<strong><a href="https://github.com/" target="_blank" rel="noopener">Github</a></strong>和<strong><a href="https://coding.net/" target="_blank" rel="noopener">Coding</a></strong>上，添加<strong>SSH Key</strong>和<strong>项目创建</strong>操作其实差不多，木有账号的童鞋可以去各自官网注册一个，这里就以Github为例。</p>
+<h3 id="创建SSH-Key"><a href="#创建SSH-Key" class="headerlink" title="创建SSH Key"></a>创建SSH Key</h3><p>打开<code>Git Bash</code>，输入命令：<br><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-keygen -t rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure></p>
+<p>邮件换成自己注册的邮件地址。完成后查看用户主目录下<code>.ssh</code>文件夹，目录下会有<code>id_rsa</code>和<code>id_rsa.pub</code>这两个文件，这两个就是SSH Key的秘钥对,id_rsa是私钥，id_rsa.pub是公钥。</p>
+<h3 id="添加SSH-Key"><a href="#添加SSH-Key" class="headerlink" title="添加SSH Key"></a>添加SSH Key</h3><p>登陆GitHub，点击头像打开<code>Account settings</code>，<code>SSH Keys</code>页面，然后，点<code>Add SSH Key</code>，填上任意<code>Title</code>，在<code>Key</code>文本框里粘贴<code>id_rsa.pub</code>文件的内容：</p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>创建项目，输入项目名称<code>myblog</code>，选择公开<code>Public</code>。</p>
+<h3 id="设置pages服务"><a href="#设置pages服务" class="headerlink" title="设置pages服务"></a>设置pages服务</h3><p>项目创建成功后，选择<code>Setting</code>下拉至<code>Github Pages</code>设置页面展示分支为<code>master branch</code>并保存。<br>注意：<strong>站点配置文件</strong><code>_config.yml</code>中，网址设置：<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="string">url:</span> <span class="string">https:</span><span class="comment">//erbiduo.github.io/</span></span><br><span class="line"><span class="string">root:</span> <span class="comment">//myblog</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><code>url</code>为pages服务的页面网址<code>https://erbiduo.github.io/</code>。</li>
+<li><code>root</code>需要改为项目名称即子目录名<code>/myblog</code>而不是<code>/</code>。</li>
+</ul>
+<p>否则会出现加载页面之后没有样式的情况。自定义域名时修改回来即可。<br></p>
+<h3 id="配置deploy部署"><a href="#配置deploy部署" class="headerlink" title="配置deploy部署"></a>配置deploy部署</h3><p>修改站点目录下<code>_config.yml</code>的<code>deploy</code>字段，输入对应项目地址及分支:<br><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>:</span><br><span class="line">    # 部署到github</span><br><span class="line">    # <span class="attribute">github</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:erbiduo/xxx.github.io.git,master</span><br><span class="line">    # 部署到coding.net。取消注释，可同时部署</span><br><span class="line">    <span class="attribute">coding</span>: git<span class="variable">@git</span>.coding.<span class="attribute">net</span>:erduo/blog.git,master</span><br></pre></td></tr></table></figure></p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>定位到博客文件目录下执行命令：<br><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git init <span class="comment">//初始化本地仓库</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> hexo g  <span class="comment">//生成静态页面</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> hexo s <span class="comment">//预览</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span> hexo d <span class="comment">//部署</span></span><br></pre></td></tr></table></figure></p>
+<p>OK 至此全部搞定，个性化修改的话可以参考next主题<a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<!-- ![1](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492357442325&di=416982fa22136fd517c1174baea0a114&imgtype=0&src=http%3A%2F%2Fi2.qhimg.com%2Ft0176245da8cf4fd621.jpg?imageMogr2/format/webp) -->]]></content>
+      <categories>
+        <category>技术向</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>博客</tag>
+      </tags>
+  </entry>
+</search>
